@@ -121,6 +121,8 @@ export async function ensureTodayConquests(
 /** Prior-day unfinished conquests → fire (with fireSince). */
 export async function promoteMissedConquestsToFire(userId: string) {
   const today = estDayKey();
+  // Cap per request so navigation never scans unbounded history on a small
+  // connection budget (direct db.prisma.io was timing out under this load).
   const missed = await prisma.dailyConquest.findMany({
     where: {
       userId,
@@ -128,6 +130,8 @@ export async function promoteMissedConquestsToFire(userId: string) {
       problem: { reviewState: { state: "unattempted" } },
     },
     include: { problem: { include: { reviewState: true } } },
+    orderBy: { estDay: "asc" },
+    take: 15,
   });
 
   for (const row of missed) {

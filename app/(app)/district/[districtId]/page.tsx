@@ -10,7 +10,7 @@ import { guestProblems } from "@/lib/guest-catalog";
 import { readDifficultyMode } from "@/lib/difficulty-server";
 import { prisma } from "@/lib/prisma";
 import { readTrackMode } from "@/lib/track-server";
-import { getOptionalUser, syncReviewStates } from "@/lib/xp";
+import { getOptionalUser } from "@/lib/xp";
 
 type Props = { params: Promise<{ districtId: string }> };
 
@@ -20,7 +20,6 @@ export default async function DistrictPage({ params }: Props) {
   if (!district) notFound();
 
   const user = await getOptionalUser();
-  if (user) await syncReviewStates(user.id);
 
   const [difficultyMode, trackMode] = await Promise.all([
     readDifficultyMode(),

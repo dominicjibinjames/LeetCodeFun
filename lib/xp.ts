@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "./prisma";
 import { countSolvesOnEstDay, estDayKey, getDailyAsk } from "./activity";
 import { estDayDiff, ensureTodayConquests, promoteMissedConquestsToFire } from "./daily-conquest";
@@ -30,7 +31,7 @@ export async function getOrCreateUser() {
   return user;
 }
 
-/** Guest-safe session lookup. */
+/** Guest-safe session lookup (request-deduped via getSessionUser). */
 export async function getOptionalUser() {
   return getSessionUser();
 }
@@ -61,7 +62,8 @@ export async function touchStreak(userId: string) {
   });
 }
 
-export async function syncReviewStates(userId: string) {
+/** Promote due reviews / overdue fires. Deduped once per userId per request. */
+export const syncReviewStates = cache(async (userId: string) => {
   await promoteMissedConquestsToFire(userId);
 
   const today = estDayKey();
@@ -72,6 +74,7 @@ export async function syncReviewStates(userId: string) {
     },
   });
 
+  // Sequential updates avoid exhausting the DB driver under concurrent RSC work.
   for (const state of states) {
     if (state.state === "built" && isReviewDue(state.nextReviewDate)) {
       const fire = markFire(new Date());
@@ -97,7 +100,7 @@ export async function syncReviewStates(userId: string) {
       }
     }
   }
-}
+});
 
 export function journeyDayNumber(journeyStartedAt: Date | null | undefined, now = new Date()): number | null {
   if (!journeyStartedAt) return null;

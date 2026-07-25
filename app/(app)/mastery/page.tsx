@@ -1,7 +1,7 @@
 import { MasteryTable } from "@/components/dashboard/MasteryTable";
 import { prisma } from "@/lib/prisma";
 import { getDistricts } from "@/lib/districts";
-import { getOptionalUser, syncReviewStates } from "@/lib/xp";
+import { getOptionalUser } from "@/lib/xp";
 
 export default async function MasteryPage() {
   const user = await getOptionalUser();
@@ -18,7 +18,6 @@ export default async function MasteryPage() {
       </div>
     );
   }
-  await syncReviewStates(user.id);
 
   const [problems, attempts] = await Promise.all([
     prisma.problem.findMany({

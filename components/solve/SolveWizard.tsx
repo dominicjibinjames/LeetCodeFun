@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { GeminiText } from "@/components/ui/GeminiText";
 import { PatternSelect } from "./PatternSelect";
@@ -37,6 +38,7 @@ const GUEST_USE_CASES = [
 ];
 
 export function SolveWizard({ problem, isGuest = false }: Props) {
+  const router = useRouter();
   const isBoss =
     problem.state === "unattempted" || problem.state === "rubble";
   const isReview = problem.state === "fire";
@@ -315,14 +317,35 @@ export function SolveWizard({ problem, isGuest = false }: Props) {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Submit failed");
 
-      const parts = [
-        data.wasCorrectPattern ? "Pattern matched." : "Pattern differed from catalog primary.",
-        `XP ${data.xpDelta >= 0 ? "+" : ""}${data.xpDelta}.`,
-        data.courtBonus ? `Court overtime +${data.courtBonus}.` : "",
-        data.reviewState ? `Building state: ${data.reviewState.state}.` : "",
-      ];
+      const state = data.reviewState?.state as string | undefined;
+      const builtNow = state === "built";
+      const parts: string[] = [];
+      if (data.wasCorrectPattern) {
+        parts.push("Pattern matched.");
+      } else {
+        parts.push(
+          "Pattern differed from this landmark’s catalog pattern — the building was not raised.",
+        );
+      }
+      if (isBoss && !bossFightWon) {
+        parts.push("Boss fight lost (timer ran out) — invaders remain.");
+      }
+      parts.push(`XP ${data.xpDelta >= 0 ? "+" : ""}${data.xpDelta}.`);
+      if (data.courtBonus) parts.push(`Court overtime +${data.courtBonus}.`);
+      if (builtNow) {
+        parts.push("Building raised — map invaders for this quest will clear.");
+      } else if (isBoss || isReview) {
+        parts.push(
+          "Invaders/fire stay until a clean solve (correct pattern + LeetCode pass" +
+            (isBoss ? " + boss win" : "") +
+            "). Retry this quest.",
+        );
+      } else if (state) {
+        parts.push(`Building state: ${state}.`);
+      }
       setResultMsg(parts.filter(Boolean).join(" "));
       setStep("done");
+      router.refresh();
     } catch (e) {
       setResultMsg(e instanceof Error ? e.message : "Submit failed");
     } finally {

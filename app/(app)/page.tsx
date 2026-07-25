@@ -14,13 +14,15 @@ import {
   computeMorale,
   getOptionalUser,
   journeyDayNumber,
-  syncReviewStates,
 } from "@/lib/xp";
 import { guestProblems } from "@/lib/guest-catalog";
 
 type Props = { searchParams: Promise<{ calY?: string; calM?: string }> };
 
 export default async function KingdomPage({ searchParams }: Props) {
+  // #region agent log
+  const t0 = Date.now();
+  // #endregion
   const user = await getOptionalUser();
   const districts = getDistricts();
   const [difficultyMode, trackMode] = await Promise.all([
@@ -30,7 +32,6 @@ export default async function KingdomPage({ searchParams }: Props) {
   const params = await searchParams;
 
   if (user) {
-    await syncReviewStates(user.id);
     if (user.journeyStartedAt) {
       await ensureTodayConquests(user.id, difficultyMode, trackMode);
     }
@@ -44,9 +45,9 @@ export default async function KingdomPage({ searchParams }: Props) {
     : guestProblems();
 
   const reviewStates = user
-    ? await prisma.reviewState.findMany({ where: { userId: user.id } })
+    ? problems.map((p) => p.reviewState).filter(Boolean)
     : [];
-  const morale = user ? computeMorale(reviewStates) : 1;
+  const morale = user ? computeMorale(reviewStates as { state: string }[]) : 1;
   const todayKey = estDayKey();
   const [ty, tm] = todayKey.split("-").map(Number);
   const calY = Number(params.calY) || ty;
@@ -111,6 +112,29 @@ export default async function KingdomPage({ searchParams }: Props) {
       total: dp.length,
     };
   });
+
+  // #region agent log
+  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Debug-Session-Id": "9e8e6e",
+    },
+    body: JSON.stringify({
+      sessionId: "9e8e6e",
+      runId: "perf",
+      hypothesisId: "P",
+      location: "page.tsx:kingdom",
+      message: "kingdom page timing",
+      data: {
+        ms: Date.now() - t0,
+        signedIn: Boolean(user),
+        problemCount: problems.length,
+      },
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+  // #endregion
 
   return (
     <div className="space-y-5">

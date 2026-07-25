@@ -5,7 +5,7 @@ import { SolveWizard } from "@/components/solve/SolveWizard";
 import { SolveWorkspace } from "@/components/solve/SolveWorkspace";
 import { guestProblemById, isGuestProblemId } from "@/lib/guest-catalog";
 import { prisma } from "@/lib/prisma";
-import { getOptionalUser, syncReviewStates } from "@/lib/xp";
+import { getOptionalUser } from "@/lib/xp";
 
 type Props = { params: Promise<{ problemId: string }> };
 
@@ -44,8 +44,7 @@ export default async function ProblemPage({ params }: Props) {
     );
   }
 
-  await syncReviewStates(user.id);
-
+  // Review sync runs once in app layout (request-cached) — skip here.
   const problem = await prisma.problem.findFirst({
     where: { id: problemId, userId: user.id },
     include: { reviewState: true },

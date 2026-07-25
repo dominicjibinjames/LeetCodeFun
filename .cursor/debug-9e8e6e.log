@@ -1,6 +1,58 @@
-{"sessionId":"9e8e6e","runId":"pre-fix","hypothesisId":"B","location":"session-user.ts:getSessionUser","message":"RSC/auth() session lookup","data":{"hasSession":true,"hasAppUserId":true},"timestamp":1784961711275}
-{"sessionId":"9e8e6e","runId":"pre-fix","hypothesisId":"B","location":"session-user.ts:getSessionUser","message":"RSC/auth() session lookup","data":{"hasSession":true,"hasAppUserId":true},"timestamp":1784961711288}
-{"sessionId":"9e8e6e","runId":"pre-fix","hypothesisId":"B","location":"session-user.ts:getSessionUser","message":"RSC/auth() session lookup","data":{"hasSession":true,"hasAppUserId":true},"timestamp":1784961711413}
-{"sessionId":"9e8e6e","runId":"pre-fix","hypothesisId":"B","location":"session-user.ts:getSessionUser","message":"RSC/auth() session lookup","data":{"hasSession":true,"hasAppUserId":true},"timestamp":1784961711427}
-{"sessionId":"9e8e6e","runId":"pre-fix","hypothesisId":"B","location":"session-user.ts:getSessionUser","message":"RSC/auth() session lookup","data":{"hasSession":true,"hasAppUserId":true},"timestamp":1784961711490}
-{"sessionId":"9e8e6e","runId":"pre-fix","hypothesisId":"B","location":"session-user.ts:getSessionUser","message":"RSC/auth() session lookup","data":{"hasSession":true,"hasAppUserId":true},"timestamp":1784961711507}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":44},"timestamp":1784964605811}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":53,"signedIn":false,"problemCount":179},"timestamp":1784964605824}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":570},"timestamp":1784964606790}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":533,"signedIn":false,"problemCount":179},"timestamp":1784964606803}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":483},"timestamp":1784964606818}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":488,"signedIn":false,"problemCount":179},"timestamp":1784964606826}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":97},"timestamp":1784964607283}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":71,"signedIn":false,"problemCount":179},"timestamp":1784964607299}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":37},"timestamp":1784964607528}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":49,"signedIn":false,"problemCount":179},"timestamp":1784964607542}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":85},"timestamp":1784964607764}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":95,"signedIn":false,"problemCount":179},"timestamp":1784964607776}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":84},"timestamp":1784964608192}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":92,"signedIn":false,"problemCount":179},"timestamp":1784964608202}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":77},"timestamp":1784964608235}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":84,"signedIn":false,"problemCount":179},"timestamp":1784964608245}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":39},"timestamp":1784964608379}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":45,"signedIn":false,"problemCount":179},"timestamp":1784964608388}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":85},"timestamp":1784964608531}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":95,"signedIn":false,"problemCount":179},"timestamp":1784964608544}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":64},"timestamp":1784964608562}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":70,"signedIn":false,"problemCount":179},"timestamp":1784964608571}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":111,"signedIn":false,"problemCount":179},"timestamp":1784964611801}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":141},"timestamp":1784964611785}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":39},"timestamp":1784964611993}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":46,"signedIn":false,"problemCount":179},"timestamp":1784964612005}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":102},"timestamp":1784964613117}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":71,"signedIn":false,"problemCount":179},"timestamp":1784964613131}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":34},"timestamp":1784964613321}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":40,"signedIn":false,"problemCount":179},"timestamp":1784964613330}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":857,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784964640726}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":1190,"signedIn":true,"problemCount":179},"timestamp":1784964641060}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":44},"timestamp":1784964715341}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":48,"signedIn":false,"problemCount":179},"timestamp":1784964715348}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":844,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784964723938}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":988,"signedIn":true,"problemCount":179},"timestamp":1784964724085}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":751,"signedIn":true,"problemCount":179},"timestamp":1784964736675}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":506,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784964792058}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":209,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784964793750}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":808,"signedIn":true,"problemCount":179},"timestamp":1784964794352}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":45},"timestamp":1784964897288}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":50,"signedIn":false,"problemCount":179},"timestamp":1784964897295}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":37},"timestamp":1784964902200}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":41,"signedIn":false,"problemCount":179},"timestamp":1784964902207}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":46},"timestamp":1784965008835}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":50,"signedIn":false,"problemCount":179},"timestamp":1784965008842}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":328,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784965015068}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":903,"signedIn":true,"problemCount":179},"timestamp":1784965015645}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":338,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784965071031}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":867,"signedIn":true,"problemCount":179},"timestamp":1784965071564}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":205,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784965078502}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":799,"signedIn":true,"problemCount":179},"timestamp":1784965079099}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:guest","message":"app layout guest timing","data":{"ms":50},"timestamp":1784965090674}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":55,"signedIn":false,"problemCount":179},"timestamp":1784965090681}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"layout.tsx:signed-in","message":"app layout signed-in timing","data":{"ms":347,"reviewCount":179,"dbHost":"pooled.db.prisma.io"},"timestamp":1784965141200}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":925,"signedIn":true,"problemCount":179},"timestamp":1784965141780}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":722,"signedIn":true,"problemCount":179},"timestamp":1784965176802}
+{"sessionId":"9e8e6e","runId":"perf","hypothesisId":"P","location":"page.tsx:kingdom","message":"kingdom page timing","data":{"ms":706,"signedIn":true,"problemCount":179},"timestamp":1784965186271}

@@ -54,29 +54,6 @@ export function StartJourneyButton({
         }),
       });
       const data = await res.json().catch(() => ({}));
-      // #region agent log
-      fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Debug-Session-Id": "9e8e6e",
-        },
-        body: JSON.stringify({
-          sessionId: "9e8e6e",
-          runId: "post-fix",
-          hypothesisId: "D",
-          location: "StartJourneyButton.tsx:confirmStart",
-          message: "start-journey client response",
-          data: {
-            status: res.status,
-            code: (data as { code?: string }).code ?? null,
-            error: (data as { error?: string }).error ?? null,
-            ok: res.ok,
-          },
-          timestamp: Date.now(),
-        }),
-      }).catch(() => {});
-      // #endregion
       if (!res.ok) throw new Error(data.error ?? "Could not start journey");
       setOpen(false);
       router.refresh();

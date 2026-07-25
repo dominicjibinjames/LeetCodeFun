@@ -17,12 +17,7 @@ export async function POST(request: Request, { params }: Params) {
 
   try {
     const result = await submitAttempt(id, body);
-    const user = await getOrCreateUser();
-    return NextResponse.json({
-      ...result,
-      xp: user.xp,
-      streakDays: user.streakDays,
-    });
+    return NextResponse.json(result);
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: "Failed to save attempt" }, { status: 500 });
