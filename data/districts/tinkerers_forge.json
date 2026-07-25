@@ -1,0 +1,35 @@
+{
+  "id": "tinkerers_forge",
+  "name": "Tinkerer's Forge",
+  "image": "/art/districts/tinkerers-forge.png",
+  "buildings": [
+    {
+      "slot": "forge_1",
+      "x": 22,
+      "y": 45,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "forge_2",
+      "x": 45,
+      "y": 35,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "forge_3",
+      "x": 65,
+      "y": 50,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "forge_4",
+      "x": 78,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

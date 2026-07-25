@@ -1,0 +1,2293 @@
+[
+  {
+    "title": "Two Sum",
+    "slug": "two-sum",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_1",
+    "statement": "Given an array of integers nums and an integer target, return indices of the two numbers that add up to target.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Merge Two Sorted Lists",
+    "slug": "merge-two-sorted-lists",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_4",
+    "statement": "Merge two sorted linked lists into one sorted list.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Climbing Stairs",
+    "slug": "climbing-stairs",
+    "difficulty": "easy",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_1",
+    "statement": "You can climb 1 or 2 steps; how many distinct ways to climb n stairs?",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Remove Duplicates from Sorted List",
+    "slug": "remove-duplicates-from-sorted-list",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_6",
+    "statement": "Delete all duplicates such that each element appears only once in a sorted list.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Same Tree",
+    "slug": "same-tree",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_3",
+    "statement": "Check if two binary trees are the same.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Depth of Binary Tree",
+    "slug": "maximum-depth-of-binary-tree",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_1",
+    "statement": "Return the maximum depth of a binary tree.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Minimum Depth of Binary Tree",
+    "slug": "minimum-depth-of-binary-tree",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_2",
+    "statement": "Return the minimum depth of a binary tree.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Path Sum",
+    "slug": "path-sum",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_5",
+    "statement": "Check if the tree has a root-to-leaf path summing to targetSum.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Best Time to Buy and Sell Stock",
+    "slug": "best-time-to-buy-and-sell-stock",
+    "difficulty": "easy",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_8",
+    "statement": "Choose a single day to buy and a different day to sell for maximum profit.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Single Number",
+    "slug": "single-number",
+    "difficulty": "easy",
+    "districtId": "tinkerers_forge",
+    "patternPrimary": "bit_manipulation",
+    "buildingSlot": "forge_5",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Linked List Cycle",
+    "slug": "linked-list-cycle",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_3",
+    "statement": "Determine if a linked list has a cycle.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Majority Element",
+    "slug": "majority-element",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_10",
+    "statement": "Find the majority element that appears more than n/2 times.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Remove Linked List Elements",
+    "slug": "remove-linked-list-elements",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_5",
+    "statement": "Remove all nodes from a linked list that have a given value.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Reverse Linked List",
+    "slug": "reverse-linked-list",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_1",
+    "statement": "Reverse a singly linked list.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Contains Duplicate",
+    "slug": "contains-duplicate",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_2",
+    "statement": "Given an integer array nums, return true if any value appears at least twice.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Invert Binary Tree",
+    "slug": "invert-binary-tree",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_4",
+    "statement": "Invert a binary tree.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Palindrome Linked List",
+    "slug": "palindrome-linked-list",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_7",
+    "statement": "Check if a singly linked list is a palindrome.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Meeting Rooms",
+    "slug": "meeting-rooms",
+    "difficulty": "easy",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_1",
+    "statement": "Determine if a person can attend all meetings.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Tree Paths",
+    "slug": "binary-tree-paths",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_7",
+    "statement": "Return all root-to-leaf paths as strings.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Missing Number",
+    "slug": "missing-number",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_12",
+    "statement": "Given an array containing n distinct numbers in [0, n], return the only number in the range missing from the array.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Move Zeroes",
+    "slug": "move-zeroes",
+    "difficulty": "easy",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_2",
+    "statement": "Move all zeroes to the end while maintaining the relative order of non-zero elements.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Range Sum Query - Immutable",
+    "slug": "range-sum-query-immutable",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "prefix_sum",
+    "buildingSlot": "farm_11",
+    "statement": "Given an integer array, handle multiple queries for the sum of elements between indices left and right.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Counting Bits",
+    "slug": "counting-bits",
+    "difficulty": "easy",
+    "districtId": "tinkerers_forge",
+    "patternPrimary": "bit_manipulation",
+    "buildingSlot": "forge_2",
+    "statement": "For every i in [0, n], return the number of 1s in its binary representation.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Is Subsequence",
+    "slug": "is-subsequence",
+    "difficulty": "easy",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_5",
+    "statement": "Check if string s is a subsequence of string t.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Find All Numbers Disappeared in an Array",
+    "slug": "find-all-numbers-disappeared-in-an-array",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_8",
+    "statement": "Given an array of n integers where nums[i] is in [1, n], return all numbers in that range missing from the array.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Subtree of Another Tree",
+    "slug": "subtree-of-another-tree",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_6",
+    "statement": "Check if there is a subtree of root with the same structure and values as subRoot.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Merge Two Binary Trees",
+    "slug": "merge-two-binary-trees",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_8",
+    "statement": "Merge two binary trees by summing overlapping nodes.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Average of Levels in Binary Tree",
+    "slug": "average-of-levels-in-binary-tree",
+    "difficulty": "easy",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_9",
+    "statement": "Return the average value of nodes on each level.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Average Subarray I",
+    "slug": "maximum-average-subarray-i",
+    "difficulty": "easy",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_1",
+    "statement": "Find a contiguous subarray of length k with the maximum average value.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Find Smallest Letter Greater Than Target",
+    "slug": "find-smallest-letter-greater-than-target",
+    "difficulty": "easy",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_2",
+    "statement": "Find the smallest character in letters that is lexicographically greater than target.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Search",
+    "slug": "binary-search",
+    "difficulty": "easy",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_1",
+    "statement": "Search for a target in a sorted array using O(log n) time.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Backspace String Compare",
+    "slug": "backspace-string-compare",
+    "difficulty": "easy",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_4",
+    "statement": "Given two strings containing backspace characters '#', check if they are equal after applying backspaces.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Middle of the Linked List",
+    "slug": "middle-of-the-linked-list",
+    "difficulty": "easy",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_2",
+    "statement": "Return the middle node of a singly linked list.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Squares of a Sorted Array",
+    "slug": "squares-of-a-sorted-array",
+    "difficulty": "easy",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_3",
+    "statement": "Return an array of the squares of each number sorted in non-decreasing order.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Index Pairs of a String",
+    "slug": "index-pairs-of-a-string",
+    "difficulty": "easy",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_4",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Convert 1D Array Into 2D Array",
+    "slug": "convert-1d-array-into-2d-array",
+    "difficulty": "easy",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_1",
+    "statement": "Construct a 2D array with m rows and n columns from a 1D array.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Valid Anagram",
+    "slug": "valid-anagram",
+    "difficulty": "easy",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_3",
+    "statement": "Given two strings s and t, return true if t is an anagram of s.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Valid Palindrome",
+    "slug": "valid-palindrome",
+    "difficulty": "easy",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_1",
+    "statement": "Check if a string is a palindrome after converting to lowercase and removing non-alphanumeric characters.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Valid Parentheses",
+    "slug": "valid-parentheses",
+    "difficulty": "easy",
+    "districtId": "twin_rivers",
+    "patternPrimary": "stack",
+    "buildingSlot": "river_10",
+    "statement": "Determine if the input string of brackets is valid.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Number of 1 Bits",
+    "slug": "number-of-1-bits",
+    "difficulty": "easy",
+    "districtId": "tinkerers_forge",
+    "patternPrimary": "bit_manipulation",
+    "buildingSlot": "forge_1",
+    "statement": "Return the number of set bits (Hamming weight) in an unsigned integer.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Reverse Bits",
+    "slug": "reverse-bits",
+    "difficulty": "easy",
+    "districtId": "tinkerers_forge",
+    "patternPrimary": "bit_manipulation",
+    "buildingSlot": "forge_3",
+    "statement": "Reverse bits of a given 32-bit unsigned integer.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Add Two Numbers",
+    "slug": "add-two-numbers",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_11",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Substring Without Repeating Characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "difficulty": "medium",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_2",
+    "statement": "Find the length of the longest substring without repeating characters.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Palindromic Substring",
+    "slug": "longest-palindromic-substring",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_4",
+    "statement": "Return the longest palindromic substring.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Container With Most Water",
+    "slug": "container-with-most-water",
+    "difficulty": "medium",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_8",
+    "statement": "Find two lines that form a container with the most water.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "3Sum",
+    "slug": "3sum",
+    "difficulty": "medium",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_6",
+    "statement": "Find all unique triplets that sum to zero.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "3Sum Closest",
+    "slug": "3sum-closest",
+    "difficulty": "medium",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_7",
+    "statement": "Find three integers such that the sum is closest to target.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Letter Combinations of a Phone Number",
+    "slug": "letter-combinations-of-a-phone-number",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_5",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Remove Nth Node From End of List",
+    "slug": "remove-nth-node-from-end-of-list",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_8",
+    "statement": "Remove the nth node from the end of a linked list.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Generate Parentheses",
+    "slug": "generate-parentheses",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_6",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Swap Nodes in Pairs",
+    "slug": "swap-nodes-in-pairs",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_12",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Search in Rotated Sorted Array",
+    "slug": "search-in-rotated-sorted-array",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_4",
+    "statement": "Search for a target in a rotated sorted array in O(log n).",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Combination Sum",
+    "slug": "combination-sum",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_7",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Combination Sum II",
+    "slug": "combination-sum-ii",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_8",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Permutations",
+    "slug": "permutations",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_9",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Permutations II",
+    "slug": "permutations-ii",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_10",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Rotate Image",
+    "slug": "rotate-image",
+    "difficulty": "medium",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_4",
+    "statement": "Rotate an n x n matrix 90 degrees clockwise in-place.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Subarray",
+    "slug": "maximum-subarray",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "greedy",
+    "buildingSlot": "market_6",
+    "statement": "Find the contiguous subarray with the largest sum (Kadane).",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Spiral Matrix",
+    "slug": "spiral-matrix",
+    "difficulty": "medium",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_3",
+    "statement": "Return all elements of the matrix in spiral order.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Jump Game",
+    "slug": "jump-game",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "greedy",
+    "buildingSlot": "market_7",
+    "statement": "Determine if you can reach the last index given jump lengths.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Merge Intervals",
+    "slug": "merge-intervals",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_2",
+    "statement": "Merge all overlapping intervals.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Insert Interval",
+    "slug": "insert-interval",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_3",
+    "statement": "Insert a new interval into a list of non-overlapping intervals and merge if necessary.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Rotate List",
+    "slug": "rotate-list",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_13",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Unique Paths",
+    "slug": "unique-paths",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_12",
+    "statement": "Count unique paths from top-left to bottom-right of an m x n grid moving only right or down.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Set Matrix Zeroes",
+    "slug": "set-matrix-zeroes",
+    "difficulty": "medium",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_2",
+    "statement": "If an element is 0, set its entire row and column to 0 in-place.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Search a 2D Matrix",
+    "slug": "search-a-2d-matrix",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_6",
+    "statement": "Search for a value in an m x n matrix with sorted rows.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Sort Colors",
+    "slug": "sort-colors",
+    "difficulty": "medium",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_9",
+    "statement": "Sort an array with 0s, 1s, and 2s in-place (Dutch National Flag).",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Combinations",
+    "slug": "combinations",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_11",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Subsets",
+    "slug": "subsets",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_12",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Word Search",
+    "slug": "word-search",
+    "difficulty": "medium",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_5",
+    "statement": "Given a board and a word, check if the word exists in the grid via adjacent cells.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Search in Rotated Sorted Array II",
+    "slug": "search-in-rotated-sorted-array-ii",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_8",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Subsets II",
+    "slug": "subsets-ii",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_13",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Decode Ways",
+    "slug": "decode-ways",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_6",
+    "statement": "A message containing digits is encoded; count ways to decode it.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Reverse Linked List II",
+    "slug": "reverse-linked-list-ii",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_14",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Validate Binary Search Tree",
+    "slug": "validate-binary-search-tree",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_11",
+    "statement": "Determine if a binary tree is a valid BST.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Tree Level Order Traversal",
+    "slug": "binary-tree-level-order-traversal",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_10",
+    "statement": "Return the level order traversal of a binary tree.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Tree Zigzag Level Order Traversal",
+    "slug": "binary-tree-zigzag-level-order-traversal",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_17",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+    "slug": "construct-binary-tree-from-preorder-and-inorder-traversal",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_14",
+    "statement": "Build a binary tree from preorder and inorder traversal arrays.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Tree Level Order Traversal II",
+    "slug": "binary-tree-level-order-traversal-ii",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_18",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Path Sum II",
+    "slug": "path-sum-ii",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_19",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Consecutive Sequence",
+    "slug": "longest-consecutive-sequence",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_7",
+    "statement": "Find the length of the longest consecutive elements sequence in O(n).",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Palindrome Partitioning",
+    "slug": "palindrome-partitioning",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_14",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Gas Station",
+    "slug": "gas-station",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "greedy",
+    "buildingSlot": "market_8",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Word Break",
+    "slug": "word-break",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_9",
+    "statement": "Determine if s can be segmented into a space-separated sequence of dictionary words.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Linked List Cycle II",
+    "slug": "linked-list-cycle-ii",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_15",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Reorder List",
+    "slug": "reorder-list",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_9",
+    "statement": "Reorder a linked list as L0→Ln→L1→Ln-1→…",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Sort List",
+    "slug": "sort-list",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_16",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Product Subarray",
+    "slug": "maximum-product-subarray",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_8",
+    "statement": "Find the contiguous subarray with the largest product.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Find Minimum in Rotated Sorted Array",
+    "slug": "find-minimum-in-rotated-sorted-array",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_5",
+    "statement": "Find the minimum element in a rotated sorted array.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Find Peak Element",
+    "slug": "find-peak-element",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_7",
+    "statement": "Find a peak element (greater than its neighbors) in O(log n).",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "House Robber",
+    "slug": "house-robber",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_2",
+    "statement": "Rob houses along a street without robbing adjacent houses; maximize loot.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Tree Right Side View",
+    "slug": "binary-tree-right-side-view",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_20",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Number of Islands",
+    "slug": "number-of-islands",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_1",
+    "statement": "Count the number of islands in a 2D grid.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Course Schedule",
+    "slug": "course-schedule",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_5",
+    "statement": "Determine if you can finish all courses given prerequisites.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Implement Trie (Prefix Tree)",
+    "slug": "implement-trie-prefix-tree",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_1",
+    "statement": "Implement a trie with insert, search, and startsWith.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Minimum Size Subarray Sum",
+    "slug": "minimum-size-subarray-sum",
+    "difficulty": "medium",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_3",
+    "statement": "Find the minimal length of a contiguous subarray whose sum is >= target.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Course Schedule II",
+    "slug": "course-schedule-ii",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_8",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "House Robber II",
+    "slug": "house-robber-ii",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_3",
+    "statement": "Same as House Robber but houses are in a circle.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Kth Largest Element in an Array",
+    "slug": "kth-largest-element-in-an-array",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_1",
+    "statement": "Find the kth largest element in an unsorted array.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Combination Sum III",
+    "slug": "combination-sum-iii",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_15",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Kth Smallest Element in a BST",
+    "slug": "kth-smallest-element-in-a-bst",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_13",
+    "statement": "Find the kth smallest element in a BST.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Lowest Common Ancestor of a Binary Search Tree",
+    "slug": "lowest-common-ancestor-of-a-binary-search-tree",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_12",
+    "statement": "Find the lowest common ancestor of two nodes in a BST.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Lowest Common Ancestor of a Binary Tree",
+    "slug": "lowest-common-ancestor-of-a-binary-tree",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_21",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Product of Array Except Self",
+    "slug": "product-of-array-except-self",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "prefix_sum",
+    "buildingSlot": "farm_6",
+    "statement": "Return an array where each element is the product of all elements except itself, without division.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Search a 2D Matrix II",
+    "slug": "search-a-2d-matrix-ii",
+    "difficulty": "medium",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_6",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Meeting Rooms II",
+    "slug": "meeting-rooms-ii",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_4",
+    "statement": "Find the minimum number of conference rooms required.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Factor Combinations",
+    "slug": "factor-combinations",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_16",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Graph Valid Tree",
+    "slug": "graph-valid-tree",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_3",
+    "statement": "Given n nodes and edges, check if the graph is a valid tree.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Find the Duplicate Number",
+    "slug": "find-the-duplicate-number",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_13",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Increasing Subsequence",
+    "slug": "longest-increasing-subsequence",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_10",
+    "statement": "Find the length of the longest strictly increasing subsequence.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Best Time to Buy and Sell Stock with Cooldown",
+    "slug": "best-time-to-buy-and-sell-stock-with-cooldown",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_14",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Minimum Height Trees",
+    "slug": "minimum-height-trees",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_9",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Generalized Abbreviation",
+    "slug": "generalized-abbreviation",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_17",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Coin Change",
+    "slug": "coin-change",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_7",
+    "statement": "Find the fewest number of coins to make up an amount.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Number of Connected Components in an Undirected Graph",
+    "slug": "number-of-connected-components-in-an-undirected-graph",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_4",
+    "statement": "Count connected components in an undirected graph.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Odd Even Linked List",
+    "slug": "odd-even-linked-list",
+    "difficulty": "medium",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_17",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Top K Frequent Elements",
+    "slug": "top-k-frequent-elements",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_2",
+    "statement": "Return the k most frequent elements.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Find K Pairs with Smallest Sums",
+    "slug": "find-k-pairs-with-smallest-sums",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_7",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Combination Sum IV",
+    "slug": "combination-sum-iv",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_13",
+    "statement": "Given an array of distinct integers, return the number of possible combinations that add up to target.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Kth Smallest Element in a Sorted Matrix",
+    "slug": "kth-smallest-element-in-a-sorted-matrix",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_5",
+    "statement": "Find the kth smallest element in a sorted n x n matrix.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Partition Equal Subset Sum",
+    "slug": "partition-equal-subset-sum",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_15",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Pacific Atlantic Water Flow",
+    "slug": "pacific-atlantic-water-flow",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_2",
+    "statement": "Find cells from which water can flow to both Pacific and Atlantic oceans.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Repeating Character Replacement",
+    "slug": "longest-repeating-character-replacement",
+    "difficulty": "medium",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_4",
+    "statement": "Find the length of the longest substring containing the same letter after at most k replacements.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Non-overlapping Intervals",
+    "slug": "non-overlapping-intervals",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_4",
+    "statement": "Find the minimum number of intervals to remove to make the rest non-overlapping.",
+    "tracks": [
+      "beginner",
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Path Sum III",
+    "slug": "path-sum-iii",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_22",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Find All Duplicates in an Array",
+    "slug": "find-all-duplicates-in-an-array",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_9",
+    "statement": "Given an integer array of length n where all integers are in [1, n] and each appears once or twice, return all integers that appear twice.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Sort Characters By Frequency",
+    "slug": "sort-characters-by-frequency",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_8",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Minimum Number of Arrows to Burst Balloons",
+    "slug": "minimum-number-of-arrows-to-burst-balloons",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_9",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Target Sum",
+    "slug": "target-sum",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_16",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Permutation in String",
+    "slug": "permutation-in-string",
+    "difficulty": "medium",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_5",
+    "statement": "Return true if s2 contains a permutation of s1.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Task Scheduler",
+    "slug": "task-scheduler",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_9",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Palindromic Substrings",
+    "slug": "palindromic-substrings",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_5",
+    "statement": "Count how many palindromic substrings are in a string.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Binary Tree",
+    "slug": "maximum-binary-tree",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_23",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Find K Closest Elements",
+    "slug": "find-k-closest-elements",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_9",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Width of Binary Tree",
+    "slug": "maximum-width-of-binary-tree",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_24",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Number of Longest Increasing Subsequence",
+    "slug": "number-of-longest-increasing-subsequence",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_17",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Partition to K Equal Sum Subsets",
+    "slug": "partition-to-k-equal-sum-subsets",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_18",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Subarray Product Less Than K",
+    "slug": "subarray-product-less-than-k",
+    "difficulty": "medium",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_7",
+    "statement": "Count contiguous subarrays where the product of elements is less than k.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Word in Dictionary",
+    "slug": "longest-word-in-dictionary",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_19",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Reorganize String",
+    "slug": "reorganize-string",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_10",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Letter Case Permutation",
+    "slug": "letter-case-permutation",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_20",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Peak Index in a Mountain Array",
+    "slug": "peak-index-in-a-mountain-array",
+    "difficulty": "medium",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_3",
+    "statement": "Return the peak index in a mountain array.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "All Nodes Distance K in Binary Tree",
+    "slug": "all-nodes-distance-k-in-binary-tree",
+    "difficulty": "medium",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_25",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Fruit Into Baskets",
+    "slug": "fruit-into-baskets",
+    "difficulty": "medium",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_6",
+    "statement": "Pick fruits from trees with at most two types; return max number of fruits.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "K Closest Points to Origin",
+    "slug": "k-closest-points-to-origin",
+    "difficulty": "medium",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_3",
+    "statement": "Return the k closest points to the origin.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Interval List Intersections",
+    "slug": "interval-list-intersections",
+    "difficulty": "medium",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_5",
+    "statement": "Given two lists of closed intervals, return their intersection.",
+    "tracks": [
+      "beginner",
+      "full"
+    ]
+  },
+  {
+    "title": "Group Anagrams",
+    "slug": "group-anagrams",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_4",
+    "statement": "Group anagrams together from an array of strings.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Encode and Decode Strings",
+    "slug": "encode-and-decode-strings",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_5",
+    "statement": "Design an algorithm to encode a list of strings to a single string and decode it back.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Design Add and Search Words Data Structure",
+    "slug": "design-add-and-search-words-data-structure",
+    "difficulty": "medium",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_2",
+    "statement": "Design a data structure that supports adding words and searching with '.' wildcards.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Clone Graph",
+    "slug": "clone-graph",
+    "difficulty": "medium",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_6",
+    "statement": "Return a deep copy of a connected undirected graph.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Sum of Two Integers",
+    "slug": "sum-of-two-integers",
+    "difficulty": "medium",
+    "districtId": "tinkerers_forge",
+    "patternPrimary": "bit_manipulation",
+    "buildingSlot": "forge_4",
+    "statement": "Calculate the sum of two integers without using + or -.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Longest Common Subsequence",
+    "slug": "longest-common-subsequence",
+    "difficulty": "medium",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_11",
+    "statement": "Find the length of the longest common subsequence of two strings.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Rotate Array",
+    "slug": "rotate-array",
+    "difficulty": "medium",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_14",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Median of Two Sorted Arrays",
+    "slug": "median-of-two-sorted-arrays",
+    "difficulty": "hard",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_10",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Merge k Sorted Lists",
+    "slug": "merge-k-sorted-lists",
+    "difficulty": "hard",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_10",
+    "statement": "Merge k sorted linked lists into one sorted list.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Reverse Nodes in k-Group",
+    "slug": "reverse-nodes-in-k-group",
+    "difficulty": "hard",
+    "districtId": "stepping_stone_causeway",
+    "patternPrimary": "linked_list",
+    "buildingSlot": "isle_18",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Substring with Concatenation of All Words",
+    "slug": "substring-with-concatenation-of-all-words",
+    "difficulty": "hard",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_10",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Sudoku Solver",
+    "slug": "sudoku-solver",
+    "difficulty": "hard",
+    "districtId": "terraced_fields",
+    "patternPrimary": "matrix",
+    "buildingSlot": "terrace_7",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "First Missing Positive",
+    "slug": "first-missing-positive",
+    "difficulty": "hard",
+    "districtId": "central_farmlands",
+    "patternPrimary": "arrays_hashing",
+    "buildingSlot": "farm_15",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Trapping Rain Water",
+    "slug": "trapping-rain-water",
+    "difficulty": "hard",
+    "districtId": "twin_rivers",
+    "patternPrimary": "two_pointers",
+    "buildingSlot": "river_11",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "N-Queens",
+    "slug": "n-queens",
+    "difficulty": "hard",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "backtracking",
+    "buildingSlot": "scholar_21",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Minimum Window Substring",
+    "slug": "minimum-window-substring",
+    "difficulty": "hard",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_9",
+    "statement": "Find the minimum window in s that covers all characters in t.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Binary Tree Maximum Path Sum",
+    "slug": "binary-tree-maximum-path-sum",
+    "difficulty": "hard",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_15",
+    "statement": "Find the maximum path sum in a binary tree (any node to any node).",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Word Search II",
+    "slug": "word-search-ii",
+    "difficulty": "hard",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_3",
+    "statement": "Given a board and a list of words, find all words on the board.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Sliding Window Maximum",
+    "slug": "sliding-window-maximum",
+    "difficulty": "hard",
+    "districtId": "windmill_vale",
+    "patternPrimary": "sliding_window",
+    "buildingSlot": "windmill_11",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Alien Dictionary",
+    "slug": "alien-dictionary",
+    "difficulty": "hard",
+    "districtId": "archipelago_straits",
+    "patternPrimary": "graphs",
+    "buildingSlot": "archipelago_7",
+    "statement": "Derive the order of letters in an alien language from a sorted word list.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Find Median from Data Stream",
+    "slug": "find-median-from-data-stream",
+    "difficulty": "hard",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_6",
+    "statement": "Design a data structure that finds the median from a data stream.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Serialize and Deserialize Binary Tree",
+    "slug": "serialize-and-deserialize-binary-tree",
+    "difficulty": "hard",
+    "districtId": "whispering_jungle",
+    "patternPrimary": "trees_dfs_bfs",
+    "buildingSlot": "jungle_16",
+    "statement": "Design an algorithm to serialize and deserialize a binary tree.",
+    "tracks": [
+      "experienced",
+      "full"
+    ]
+  },
+  {
+    "title": "Count of Range Sum",
+    "slug": "count-of-range-sum",
+    "difficulty": "hard",
+    "districtId": "iron_peaks_switchbacks",
+    "patternPrimary": "binary_search",
+    "buildingSlot": "peak_11",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Rearrange String k Distance Apart",
+    "slug": "rearrange-string-k-distance-apart",
+    "difficulty": "hard",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_11",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Word Squares",
+    "slug": "word-squares",
+    "difficulty": "hard",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_22",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Concatenated Words",
+    "slug": "concatenated-words",
+    "difficulty": "hard",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_23",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Sliding Window Median",
+    "slug": "sliding-window-median",
+    "difficulty": "hard",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_12",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Smallest Range Covering Elements from K Lists",
+    "slug": "smallest-range-covering-elements-from-k-lists",
+    "difficulty": "hard",
+    "districtId": "sentinel_heights",
+    "patternPrimary": "heaps",
+    "buildingSlot": "sentinel_13",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Design Search Autocomplete System",
+    "slug": "design-search-autocomplete-system",
+    "difficulty": "hard",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_24",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Prefix and Suffix Search",
+    "slug": "prefix-and-suffix-search",
+    "difficulty": "hard",
+    "districtId": "scholars_quarter",
+    "patternPrimary": "tries",
+    "buildingSlot": "scholar_25",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Employee Free Time",
+    "slug": "employee-free-time",
+    "difficulty": "hard",
+    "districtId": "market_row",
+    "patternPrimary": "intervals",
+    "buildingSlot": "market_10",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Count Unique Characters of All Substrings of a Given String",
+    "slug": "count-unique-characters-of-all-substrings-of-a-given-string",
+    "difficulty": "hard",
+    "districtId": "shrouded_highlands",
+    "patternPrimary": "dynamic_programming",
+    "buildingSlot": "highland_18",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  },
+  {
+    "title": "Maximum Frequency Stack",
+    "slug": "maximum-frequency-stack",
+    "difficulty": "hard",
+    "districtId": "twin_rivers",
+    "patternPrimary": "stack",
+    "buildingSlot": "river_12",
+    "statement": "Solve this LeetCode problem. Focus on the primary pattern for this district landmark.",
+    "tracks": [
+      "full"
+    ]
+  }
+]

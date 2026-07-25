@@ -1,0 +1,98 @@
+{
+  "id": "shrouded_highlands",
+  "name": "Shrouded Highlands",
+  "image": "/art/districts/shrouded-highlands.png",
+  "buildings": [
+    {
+      "slot": "highland_1",
+      "x": 12,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_2",
+      "x": 28,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_3",
+      "x": 42,
+      "y": 30,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_4",
+      "x": 55,
+      "y": 48,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_5",
+      "x": 68,
+      "y": 28,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_6",
+      "x": 80,
+      "y": 42,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_7",
+      "x": 18,
+      "y": 70,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_8",
+      "x": 35,
+      "y": 65,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_9",
+      "x": 52,
+      "y": 72,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_10",
+      "x": 70,
+      "y": 62,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_11",
+      "x": 88,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_12",
+      "x": 8,
+      "y": 35,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "highland_13",
+      "x": 60,
+      "y": 18,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

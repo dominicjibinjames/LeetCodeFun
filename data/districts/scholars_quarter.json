@@ -1,0 +1,28 @@
+{
+  "id": "scholars_quarter",
+  "name": "Scholar's Quarter",
+  "image": "/art/districts/scholars-quarter.png",
+  "buildings": [
+    {
+      "slot": "scholar_1",
+      "x": 25,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "scholar_2",
+      "x": 50,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "scholar_3",
+      "x": 72,
+      "y": 38,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

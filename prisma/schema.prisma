@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 String          @id @default(cuid())
+  createdAt          DateTime        @default(now())
+  /** Auth.js subject (provider|id or stable oauth sub) */
+  authJsUserId       String?         @unique
+  email              String?
+  name               String?
+  image              String?
+  xp                 Int             @default(0)
+  streakDays         Int             @default(0)
+  lastActive         DateTime?
+  journeyStartedAt   DateTime?
+  progressiveUnlock  Boolean         @default(true)
+  /** Locked journey filters while progressive mode is on */
+  journeyDifficulty  String?
+  journeyTrack       String?
+  geminiKeyEncrypted String?
+  problems           Problem[]
+  attempts           Attempt[]
+  reviewStates       ReviewState[]
+  dailyConquests     DailyConquest[]
+  pushSubscriptions  PushSubscription[]
+}
+
+model Problem {
+  id               String          @id @default(cuid())
+  userId           String
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title            String
+  leetcodeUrl      String
+  statement        String          @db.Text
+  district         String
+  patternPrimary   String
+  difficulty       String          @default("medium")
+  businessUseCases Json?
+  buildingSlot     String
+  createdAt        DateTime        @default(now())
+  attempts         Attempt[]
+  reviewState      ReviewState?
+  dailyConquests   DailyConquest[]
+
+  @@unique([userId, buildingSlot])
+  @@index([userId, district])
+}
+
+model Attempt {
+  id                   String   @id @default(cuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId            String
+  problem              Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  date                 DateTime @default(now())
+  patternGuess         String
+  patternJustification String   @db.Text
+  explanation          String   @db.Text
+  timeComplexity       String?
+  spaceComplexity      String?
+  complexityWhy        String?  @db.Text
+  confidenceRating     Int
+  reasoningSeconds     Int
+  codingSeconds        Int?
+  wasCorrectPattern    Boolean?
+  wasBossFight         Boolean  @default(false)
+  bossFightWon         Boolean?
+  passedLeetCode       Boolean?
+  mode                 String
+
+  @@index([userId, problemId])
+}
+
+model ReviewState {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problemId         String    @unique
+  problem           Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  box               Int       @default(1)
+  nextReviewDate    DateTime
+  state             String    @default("unattempted")
+  consecutiveMisses Int       @default(0)
+  fireSince         DateTime?
+
+  @@index([userId, nextReviewDate])
+  @@index([userId, state])
+}
+
+model DailyConquest {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  estDay       String
+  problemId    String
+  problem      Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  buildingSlot String
+  districtId   String
+  createdAt    DateTime @default(now())
+
+  @@unique([userId, estDay, problemId])
+  @@index([userId, estDay])
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  @@unique([endpoint])
+  @@index([userId])
+}

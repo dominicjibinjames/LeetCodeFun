@@ -1,0 +1,119 @@
+{
+  "id": "whispering_jungle",
+  "name": "Whispering Jungle",
+  "image": "/art/districts/whispering-jungle.png",
+  "buildings": [
+    {
+      "slot": "jungle_1",
+      "x": 10,
+      "y": 30,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_2",
+      "x": 25,
+      "y": 45,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_3",
+      "x": 40,
+      "y": 25,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_4",
+      "x": 55,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_5",
+      "x": 70,
+      "y": 28,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_6",
+      "x": 15,
+      "y": 60,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_7",
+      "x": 30,
+      "y": 70,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_8",
+      "x": 48,
+      "y": 58,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_9",
+      "x": 62,
+      "y": 68,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_10",
+      "x": 78,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_11",
+      "x": 85,
+      "y": 35,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_12",
+      "x": 8,
+      "y": 48,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_13",
+      "x": 38,
+      "y": 48,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_14",
+      "x": 58,
+      "y": 22,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_15",
+      "x": 72,
+      "y": 72,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "jungle_16",
+      "x": 88,
+      "y": 65,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

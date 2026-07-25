@@ -1,0 +1,34 @@
+{
+  "total": 179,
+  "added": 70,
+  "byDistrict": {
+    "central_farmlands": 15,
+    "stepping_stone_causeway": 18,
+    "shrouded_highlands": 18,
+    "whispering_jungle": 25,
+    "windmill_vale": 11,
+    "tinkerers_forge": 5,
+    "market_row": 10,
+    "twin_rivers": 12,
+    "iron_peaks_switchbacks": 11,
+    "scholars_quarter": 25,
+    "terraced_fields": 7,
+    "archipelago_straits": 9,
+    "sentinel_heights": 13
+  },
+  "nextSlot": {
+    "central_farmlands": 15,
+    "twin_rivers": 12,
+    "windmill_vale": 11,
+    "stepping_stone_causeway": 18,
+    "iron_peaks_switchbacks": 11,
+    "whispering_jungle": 25,
+    "scholars_quarter": 25,
+    "sentinel_heights": 13,
+    "archipelago_straits": 9,
+    "shrouded_highlands": 18,
+    "market_row": 10,
+    "terraced_fields": 7,
+    "tinkerers_forge": 5
+  }
+}

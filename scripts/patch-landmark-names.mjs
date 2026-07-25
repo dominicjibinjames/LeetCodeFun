@@ -1,0 +1,261 @@
+/**
+ * Replace problem-title landmarks with art-based location names.
+ * Run: node scripts/patch-landmark-names.mjs
+ */
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const root = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
+const silPath = path.join(root, "data/districts/building-silhouettes.ts");
+const catalog = JSON.parse(
+  fs.readFileSync(path.join(root, "data/problems/catalog.json"), "utf8"),
+);
+
+/** Explicit slot → landmark from district art (hand-traced / reviewed). */
+const SLOT_LANDMARKS = {
+  // central_farmlands farm_1–12 preserved from hand trace
+  farm_1: "Windmill",
+  farm_2: "Manor / blue-roof house",
+  farm_3: "Castle",
+  farm_4: "Fenced cottage",
+  farm_5: "Granary tower",
+  farm_6: "Market stall",
+  farm_7: "Well",
+  farm_8: "Watermill",
+  farm_9: "Red barn + silo",
+  farm_10: "Thatched cottage + garden",
+  farm_11: "Chapel",
+  farm_12: "Streamside cottage / shed",
+  farm_13: "South granary",
+  farm_14: "Hillside barn",
+  farm_15: "Orchard shed",
+
+  river_1: "Northwest Watchtower",
+  river_2: "Watermill",
+  river_3: "Forest Cottage",
+  river_4: "Northeast Watchtower",
+  river_5: "Stone Chapel",
+  river_6: "River Island Tower",
+  river_7: "Red-Roof Manor",
+  river_8: "Cliff Watchtower",
+  river_9: "Thatched Dock House",
+  river_10: "Harbor Warehouse",
+  river_11: "South Fork Bridge",
+  river_12: "Mistwood Cabin",
+
+  windmill_1: "Hilltop Windmill",
+  windmill_2: "Garden Farmhouse",
+  windmill_3: "Red Barn",
+  windmill_4: "Cliff Windmill",
+  windmill_5: "Flower Cottage",
+  windmill_6: "Pond Watermill",
+  windmill_7: "Hay Shed",
+  windmill_8: "Walled Chapel",
+  windmill_9: "Thatched Round Hut",
+  windmill_10: "Riverside Mill",
+  windmill_11: "Terraced Shed",
+
+  isle_1: "Blue Watchtower",
+  isle_2: "Thatched Cottage",
+  isle_3: "Lookout Scaffold",
+  isle_4: "Red Spire House",
+  isle_5: "Log Fortress",
+  isle_6: "Crane Depot",
+  isle_7: "Round Thatched Hut",
+  isle_8: "Dockside Workshop",
+  isle_9: "Red Pavilion",
+  isle_10: "Tree-Side Blue Tower",
+  isle_11: "Pebble Jetty",
+  isle_12: "Rope Bridge Post",
+  isle_13: "Salt Shed",
+  isle_14: "Driftwood Hut",
+  isle_15: "Beacon Cairn",
+  isle_16: "Tide Pool Hut",
+  isle_17: "Shell Market",
+  isle_18: "Fog Lantern",
+
+  peak_1: "Summit Sentry",
+  peak_2: "High Sanctum",
+  peak_3: "Cliffside Cabin",
+  peak_4: "Iron Maw Mine",
+  peak_5: "Mid-Pass Tower",
+  peak_6: "Wayfarer's Spire",
+  peak_7: "Trailhead Lodge",
+  peak_8: "Switchback Shelter",
+  peak_9: "Ore Cart Shed",
+  peak_10: "Peak Signal",
+  peak_11: "Miner's Rest",
+
+  jungle_1: "High Canopy Treehouse",
+  jungle_2: "Low Canopy Treehouse",
+  jungle_3: "Mid Branch Treehouse",
+  jungle_4: "Great Ancient Temple",
+  jungle_5: "Mossy Stone Arch",
+  jungle_6: "Guardian Head Fountain",
+  jungle_7: "Central Tree Observatory",
+  jungle_8: "Cliffside Green Villa",
+  jungle_9: "Pillar Lookout Hut",
+  jungle_10: "Basecamp Hut",
+  jungle_11: "Broken Watchtower",
+  jungle_12: "Northeast Treehouse",
+  jungle_13: "East Branch Treehouse",
+  jungle_14: "Hidden Canopy Hut",
+  jungle_15: "Domed Stone Ruins",
+  jungle_16: "Sunken Gateway",
+  jungle_17: "Vine-Covered Shrine",
+  jungle_18: "Waterfall Grotto",
+  jungle_19: "Rope Bridge Hut",
+  jungle_20: "Canopy Observatory",
+  jungle_21: "Stone Idol Terrace",
+  jungle_22: "Fern Hollow Lodge",
+  jungle_23: "Emerald Pool Hut",
+  jungle_24: "Ancient Stair Ruins",
+  jungle_25: "Jungle Signal Fire",
+
+  scholar_1: "Great Domed Hall",
+  scholar_2: "Clock Tower",
+  scholar_3: "Gothic Library",
+  scholar_4: "Inner Courtyard",
+  scholar_5: "Scriptorium Wing",
+  scholar_6: "Alchemy Laboratory",
+  scholar_7: "Observatory Dome",
+  scholar_8: "Dormitory Block",
+  scholar_9: "Archive Vault",
+  scholar_10: "Debate Forum",
+  scholar_11: "Printing Press",
+  scholar_12: "Alumni Gate",
+  scholar_13: "Rooftop Garden",
+  scholar_14: "Astronomy Tower",
+  scholar_15: "Philosophy Hall",
+  scholar_16: "Music Conservatory",
+  scholar_17: "Map Room",
+  scholar_18: "East Cloister",
+  scholar_19: "West Cloister",
+  scholar_20: "Scholars' Fountain",
+  scholar_21: "Trophy Hall",
+  scholar_22: "Lecture Amphitheater",
+  scholar_23: "Stone Colonnade",
+  scholar_24: "Inkwell Courtyard",
+  scholar_25: "Belfry Annex",
+
+  sentinel_1: "High Sentinel Citadel",
+  sentinel_2: "Western Watchtower",
+  sentinel_3: "East Peak Keep",
+  sentinel_4: "Seaside Watchtower",
+  sentinel_5: "River Guard Bastion",
+  sentinel_6: "Spire of the Heights",
+  sentinel_7: "North Bastion",
+  sentinel_8: "Fog Beacon",
+  sentinel_9: "Ridge Beacon",
+  sentinel_10: "Storm Wall",
+  sentinel_11: "Gatehouse",
+  sentinel_12: "Signal Fire",
+  sentinel_13: "Coastal Battery",
+
+  archipelago_1: "High Citadel",
+  archipelago_2: "Great Lighthouse",
+  archipelago_3: "Domed Harbor Hall",
+  archipelago_4: "Coastal Windmill",
+  archipelago_5: "Sunken Arena",
+  archipelago_6: "Crystal Spire",
+  archipelago_7: "Cliff Temple Ruins",
+  archipelago_8: "Harbor Quay",
+  archipelago_9: "Sea Cave Shrine",
+
+  highland_1: "Grand Cloud Palace",
+  highland_2: "Falls Pagoda",
+  highland_3: "Summit Shrine",
+  highland_4: "Mid-Stair Pavilion",
+  highland_5: "Stone Watchtower",
+  highland_6: "Moon-Viewing Platform",
+  highland_7: "Lotus Pond Shrine",
+  highland_8: "Highland Hamlet",
+  highland_9: "Mountain Watermill",
+  highland_10: "Southern Peak Temple",
+  highland_11: "Cliffside Torii Gate",
+  highland_12: "Hermit's Hut",
+  highland_13: "Whispering Grotto",
+  highland_14: "Terraced Shrine",
+  highland_15: "Cloud Bridge",
+  highland_16: "Mist Torii",
+  highland_17: "Zen Garden Pavilion",
+  highland_18: "Highland Tea House",
+
+  market_1: "Blue-Roof Manor",
+  market_2: "Arched Grand Bazaar",
+  market_3: "Crimson Domed Tower",
+  market_4: "Purple-Tiered Shop",
+  market_5: "Azure Corner Shop",
+  market_6: "Red-Stripe Stall",
+  market_7: "Golden-Thatch House",
+  market_8: "Spice Merchant Stall",
+  market_9: "Silk Weaver Shop",
+  market_10: "Tavern Annex",
+
+  terrace_1: "Manor House",
+  terrace_2: "Granary Tower",
+  terrace_3: "Field Windmill",
+  terrace_4: "Tiered Farmhouse",
+  terrace_5: "Main Gatehouse",
+  terrace_6: "Rice Paddy Hut",
+  terrace_7: "Irrigation Sluice",
+
+  forge_1: "Dome Smeltery",
+  forge_2: "Timber Workshop",
+  forge_3: "Central Furnace",
+  forge_4: "Lower Foundry",
+  forge_5: "Ore Stockpile",
+};
+
+const problemTitles = new Set(catalog.map((p) => p.title.toLowerCase()));
+
+let src = fs.readFileSync(silPath, "utf8");
+let patched = 0;
+let missing = [];
+
+src = src.replace(
+  /slot: "([^"]+)",\s*\n\s*landmark: "([^"]*)",/g,
+  (match, slot, oldLandmark) => {
+    const next = SLOT_LANDMARKS[slot];
+    if (!next) {
+      missing.push(slot);
+      return match;
+    }
+    if (next === oldLandmark) return match;
+    patched += 1;
+    return `slot: "${slot}",\n      landmark: "${next.replace(/"/g, '\\"')}",`;
+  },
+);
+
+if (missing.length) {
+  console.warn("Missing landmark names for slots:", missing);
+}
+
+fs.writeFileSync(silPath, src);
+fs.writeFileSync(
+  path.join(root, "data/districts/slot-landmarks.json"),
+  JSON.stringify(SLOT_LANDMARKS, null, 2),
+);
+
+// Verify no landmark still equals a problem title
+const stillBad = [];
+for (const m of src.matchAll(/slot: "([^"]+)",\s*\n\s*landmark: "([^"]*)",/g)) {
+  const [, slot, landmark] = m;
+  if (problemTitles.has(landmark.toLowerCase())) {
+    stillBad.push({ slot, landmark });
+  }
+}
+
+console.log(
+  JSON.stringify(
+    {
+      patched,
+      missingSlots: missing.length,
+      stillProblemTitles: stillBad.length,
+      sample: stillBad.slice(0, 5),
+    },
+    null,
+    2,
+  ),
+);

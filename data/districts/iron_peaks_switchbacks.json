@@ -1,0 +1,56 @@
+{
+  "id": "iron_peaks_switchbacks",
+  "name": "Iron Peaks Switchbacks",
+  "image": "/art/districts/iron-peaks-switchbacks.png",
+  "buildings": [
+    {
+      "slot": "peak_1",
+      "x": 20,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "peak_2",
+      "x": 35,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "peak_3",
+      "x": 50,
+      "y": 28,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "peak_4",
+      "x": 65,
+      "y": 42,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "peak_5",
+      "x": 78,
+      "y": 30,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "peak_6",
+      "x": 40,
+      "y": 65,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "peak_7",
+      "x": 70,
+      "y": 60,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

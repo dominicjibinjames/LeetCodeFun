@@ -1,0 +1,49 @@
+{
+  "id": "sentinel_heights",
+  "name": "Sentinel Heights",
+  "image": "/art/districts/sentinel-heights.png",
+  "buildings": [
+    {
+      "slot": "sentinel_1",
+      "x": 18,
+      "y": 45,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "sentinel_2",
+      "x": 38,
+      "y": 30,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "sentinel_3",
+      "x": 55,
+      "y": 50,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "sentinel_4",
+      "x": 72,
+      "y": 28,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "sentinel_5",
+      "x": 85,
+      "y": 48,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "sentinel_6",
+      "x": 45,
+      "y": 68,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

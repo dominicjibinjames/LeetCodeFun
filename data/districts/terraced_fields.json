@@ -1,0 +1,42 @@
+{
+  "id": "terraced_fields",
+  "name": "Terraced Fields",
+  "image": "/art/districts/terraced-fields.png",
+  "buildings": [
+    {
+      "slot": "terrace_1",
+      "x": 18,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "terrace_2",
+      "x": 38,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "terrace_3",
+      "x": 55,
+      "y": 35,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "terrace_4",
+      "x": 72,
+      "y": 50,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "terrace_5",
+      "x": 45,
+      "y": 70,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

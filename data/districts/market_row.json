@@ -1,0 +1,56 @@
+{
+  "id": "market_row",
+  "name": "Market Row",
+  "image": "/art/districts/market-row.png",
+  "buildings": [
+    {
+      "slot": "market_1",
+      "x": 10,
+      "y": 45,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "market_2",
+      "x": 28,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "market_3",
+      "x": 45,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "market_4",
+      "x": 60,
+      "y": 58,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "market_5",
+      "x": 75,
+      "y": 42,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "market_6",
+      "x": 35,
+      "y": 70,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "market_7",
+      "x": 70,
+      "y": 68,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}

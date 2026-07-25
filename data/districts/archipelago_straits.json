@@ -1,0 +1,56 @@
+{
+  "id": "archipelago_straits",
+  "name": "Archipelago Straits",
+  "image": "/art/districts/archipelago-straits.png",
+  "buildings": [
+    {
+      "slot": "archipelago_1",
+      "x": 12,
+      "y": 40,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "archipelago_2",
+      "x": 30,
+      "y": 55,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "archipelago_3",
+      "x": 48,
+      "y": 35,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "archipelago_4",
+      "x": 62,
+      "y": 58,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "archipelago_5",
+      "x": 78,
+      "y": 42,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "archipelago_6",
+      "x": 22,
+      "y": 70,
+      "w": 10,
+      "h": 14
+    },
+    {
+      "slot": "archipelago_7",
+      "x": 70,
+      "y": 70,
+      "w": 10,
+      "h": 14
+    }
+  ]
+}
