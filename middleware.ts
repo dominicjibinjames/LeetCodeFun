@@ -56,12 +56,81 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  const hasSecret = Boolean(process.env.AUTH_SECRET);
+  const cookieNames = request.cookies
+    .getAll()
+    .map((c) => c.name)
+    .filter((n) => /auth|session|next-auth/i.test(n));
+  const isHttps = request.nextUrl.protocol === "https:";
+
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
   });
+  // #region agent log
+  const tokenSecure = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+    secureCookie: true,
+  });
+  const tokenInsecure = await getToken({
+    req: request,
+    secret: process.env.AUTH_SECRET,
+    secureCookie: false,
+  });
+  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Debug-Session-Id": "9e8e6e",
+    },
+    body: JSON.stringify({
+      sessionId: "9e8e6e",
+      runId: "pre-fix",
+      hypothesisId: "A",
+      location: "middleware.ts:getToken",
+      message: "middleware auth check for protected API",
+      data: {
+        pathname,
+        method: request.method,
+        hasSecret,
+        isHttps,
+        cookieNames,
+        defaultHasToken: Boolean(token),
+        defaultHasAppUserId: Boolean(token?.appUserId),
+        secureHasToken: Boolean(tokenSecure),
+        secureHasAppUserId: Boolean(tokenSecure?.appUserId),
+        insecureHasToken: Boolean(tokenInsecure),
+        insecureHasAppUserId: Boolean(tokenInsecure?.appUserId),
+      },
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+  // #endregion
 
   if (!token?.appUserId) {
+    // #region agent log
+    fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Debug-Session-Id": "9e8e6e",
+      },
+      body: JSON.stringify({
+        sessionId: "9e8e6e",
+        runId: "pre-fix",
+        hypothesisId: "A",
+        location: "middleware.ts:401",
+        message: "rejecting protected API — no appUserId on default getToken",
+        data: {
+          pathname,
+          wouldPassWithSecure: Boolean(tokenSecure?.appUserId),
+          wouldPassWithInsecure: Boolean(tokenInsecure?.appUserId),
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+    // #endregion
     return NextResponse.json(
       { error: "Sign in to save progress and use Gemini features.", code: "SIGN_IN_REQUIRED" },
       { status: 401 },
