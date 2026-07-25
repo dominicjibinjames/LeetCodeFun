@@ -8,8 +8,8 @@ import { unlockedDistrictIds } from "@/lib/district-progress";
 import { getDistricts } from "@/lib/districts";
 import { readDifficultyMode } from "@/lib/difficulty-server";
 import { estDayKey } from "@/lib/activity-time";
-import { prisma } from "@/lib/prisma";
 import { readTrackMode } from "@/lib/track-server";
+import { getUserProblemProgress } from "@/lib/user-progress";
 import {
   computeMorale,
   getOptionalUser,
@@ -31,18 +31,11 @@ export default async function KingdomPage({ searchParams }: Props) {
   ]);
   const params = await searchParams;
 
-  if (user) {
-    if (user.journeyStartedAt) {
-      await ensureTodayConquests(user.id, difficultyMode, trackMode);
-    }
+  if (user?.journeyStartedAt) {
+    await ensureTodayConquests(user.id, difficultyMode, trackMode);
   }
 
-  const problems = user
-    ? await prisma.problem.findMany({
-        where: { userId: user.id },
-        include: { reviewState: true },
-      })
-    : guestProblems();
+  const problems = user ? await getUserProblemProgress(user.id) : guestProblems();
 
   const reviewStates = user
     ? problems.map((p) => p.reviewState).filter(Boolean)

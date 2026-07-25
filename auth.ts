@@ -23,17 +23,40 @@ async function ensureAppUser(params: {
   name?: string | null;
   image?: string | null;
 }): Promise<AppUser> {
+  // #region agent log
+  const t0 = Date.now();
+  // #endregion
   const existing = await prisma.user.findUnique({
     where: { authJsUserId: params.authJsUserId },
   });
   if (existing) {
+    const email = params.email ?? existing.email;
+    const name = params.name ?? existing.name;
+    const image = params.image ?? existing.image;
+    const unchanged =
+      email === existing.email && name === existing.name && image === existing.image;
+    // #region agent log
+    fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Debug-Session-Id": "9e8e6e",
+      },
+      body: JSON.stringify({
+        sessionId: "9e8e6e",
+        runId: "login",
+        hypothesisId: "L1",
+        location: "auth.ts:ensureAppUser",
+        message: "existing user login",
+        data: { ms: Date.now() - t0, wrote: !unchanged },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+    // #endregion
+    if (unchanged) return existing;
     return prisma.user.update({
       where: { id: existing.id },
-      data: {
-        email: params.email ?? existing.email,
-        name: params.name ?? existing.name,
-        image: params.image ?? existing.image,
-      },
+      data: { email, name, image },
     });
   }
 
@@ -45,7 +68,25 @@ async function ensureAppUser(params: {
       image: params.image ?? null,
     },
   });
-  await seedUserProblems(prisma, user.id);
+  const seeded = await seedUserProblems(prisma, user.id);
+  // #region agent log
+  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Debug-Session-Id": "9e8e6e",
+    },
+    body: JSON.stringify({
+      sessionId: "9e8e6e",
+      runId: "login",
+      hypothesisId: "L1",
+      location: "auth.ts:ensureAppUser",
+      message: "new user seeded",
+      data: { ms: Date.now() - t0, created: seeded.created },
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+  // #endregion
   return user;
 }
 

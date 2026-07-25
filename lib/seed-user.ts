@@ -1,60 +1,71 @@
 import type { PrismaClient } from "@prisma/client";
 import catalog from "../data/problems/catalog.json";
 
-/** Ensure all catalog problems (+ unattempted review states) exist for this user. */
+type CatalogItem = (typeof catalog)[number];
+
+/**
+ * Ensure catalog problems (+ unattempted review states) exist for this user.
+ * Batched createMany — the old per-row loop was ~350–500 round-trips and
+ * routinely timed out Prisma Postgres / Vercel on first OAuth login.
+ */
 export async function seedUserProblems(
   db: PrismaClient,
   userId: string,
 ): Promise<{ created: number; updated: number }> {
-  let created = 0;
-  let updated = 0;
+  const existing = await db.problem.findMany({
+    where: { userId },
+    select: { id: true, buildingSlot: true },
+  });
+  const existingSlots = new Set(existing.map((p) => p.buildingSlot));
 
-  for (const item of catalog) {
-    const leetcodeUrl = `https://leetcode.com/problems/${item.slug}/`;
-    const existing = await db.problem.findFirst({
-      where: { userId, buildingSlot: item.buildingSlot },
-    });
+  const missing = (catalog as CatalogItem[]).filter(
+    (item) => !existingSlots.has(item.buildingSlot),
+  );
 
-    if (existing) {
-      await db.problem.update({
-        where: { id: existing.id },
-        data: {
-          title: item.title,
-          leetcodeUrl,
-          statement: item.statement,
-          district: item.districtId,
-          patternPrimary: item.patternPrimary,
-          difficulty: item.difficulty,
-        },
-      });
-      updated += 1;
-      continue;
-    }
-
-    const problem = await db.problem.create({
-      data: {
-        userId,
-        title: item.title,
-        leetcodeUrl,
-        statement: item.statement,
-        district: item.districtId,
-        patternPrimary: item.patternPrimary,
-        difficulty: item.difficulty,
-        buildingSlot: item.buildingSlot,
-      },
-    });
-
-    await db.reviewState.create({
-      data: {
-        userId,
-        problemId: problem.id,
-        box: 1,
-        nextReviewDate: new Date(),
-        state: "unattempted",
-      },
-    });
-    created += 1;
+  if (missing.length === 0) {
+    return { created: 0, updated: 0 };
   }
 
-  return { created, updated };
+  await db.problem.createMany({
+    data: missing.map((item) => ({
+      userId,
+      title: item.title,
+      leetcodeUrl: `https://leetcode.com/problems/${item.slug}/`,
+      statement: item.statement,
+      district: item.districtId,
+      patternPrimary: item.patternPrimary,
+      difficulty: item.difficulty,
+      buildingSlot: item.buildingSlot,
+    })),
+    skipDuplicates: true,
+  });
+
+  const createdProblems = await db.problem.findMany({
+    where: {
+      userId,
+      buildingSlot: { in: missing.map((m) => m.buildingSlot) },
+    },
+    select: { id: true },
+  });
+
+  const existingReviews = await db.reviewState.findMany({
+    where: { userId, problemId: { in: createdProblems.map((p) => p.id) } },
+    select: { problemId: true },
+  });
+  const reviewed = new Set(existingReviews.map((r) => r.problemId));
+  const reviewRows = createdProblems
+    .filter((p) => !reviewed.has(p.id))
+    .map((p) => ({
+      userId,
+      problemId: p.id,
+      box: 1,
+      nextReviewDate: new Date(),
+      state: "unattempted" as const,
+    }));
+
+  if (reviewRows.length) {
+    await db.reviewState.createMany({ data: reviewRows, skipDuplicates: true });
+  }
+
+  return { created: createdProblems.length, updated: 0 };
 }

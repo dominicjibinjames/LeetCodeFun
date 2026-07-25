@@ -59,10 +59,8 @@ export async function ensureTodayConquests(
   const quota = newPerDay();
   if (existing.length >= quota) return existing;
 
-  const problems = await prisma.problem.findMany({
-    where: { userId },
-    include: { reviewState: true },
-  });
+  const { getUserProblemProgress } = await import("@/lib/user-progress");
+  const problems = await getUserProblemProgress(userId);
 
   const progress = problems.map((p) => ({
     district: p.district,
@@ -95,7 +93,9 @@ export async function ensureTodayConquests(
       const da = order.indexOf(a.district);
       const db = order.indexOf(b.district);
       if (da !== db) return da - db;
-      return a.createdAt.getTime() - b.createdAt.getTime();
+      const ac = a.createdAt?.getTime?.() ?? 0;
+      const bc = b.createdAt?.getTime?.() ?? 0;
+      return ac - bc;
     });
 
   const need = quota - existing.length;

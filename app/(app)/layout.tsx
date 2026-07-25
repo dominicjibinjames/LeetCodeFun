@@ -3,21 +3,11 @@ import { DifficultyProvider } from "@/components/difficulty/DifficultyProvider";
 import { TrackProvider } from "@/components/track/TrackProvider";
 import { AppShell } from "@/components/ui/AppShell";
 import { resolveActiveJourneyFilters } from "@/lib/journey-filters";
-import { toPooledDatabaseUrl } from "@/lib/database-url";
 import { prisma } from "@/lib/prisma";
+import { getUserProblemProgress } from "@/lib/user-progress";
 import { computeMorale, getOptionalUser, syncReviewStates } from "@/lib/xp";
 
 export const dynamic = "force-dynamic";
-
-function runtimeDbHost(): string {
-  try {
-    const raw = process.env.DATABASE_URL;
-    if (!raw) return "missing";
-    return new URL(toPooledDatabaseUrl(raw)).hostname;
-  } catch {
-    return "parse-error";
-  }
-}
 
 export default async function AppLayout({
   children,
@@ -69,55 +59,34 @@ export default async function AppLayout({
     );
   }
 
-  await syncReviewStates(user.id);
-  const [fresh, states] = await Promise.all([
-    prisma.user.findUniqueOrThrow({
-      where: { id: user.id },
-      select: {
-        id: true,
-        xp: true,
-        streakDays: true,
-        progressiveUnlock: true,
-        journeyStartedAt: true,
-        journeyDifficulty: true,
-        journeyTrack: true,
-        geminiKeyEncrypted: true,
-      },
-    }),
-    prisma.reviewState.findMany({
-      where: { userId: user.id },
-      select: { state: true },
-    }),
-  ]);
+  if (user.journeyStartedAt) {
+    await syncReviewStates(user.id);
+  }
 
-  let journeyUser = fresh;
+  // Shared with kingdom page via React cache — one progress query per request.
+  const problems = await getUserProblemProgress(user.id);
+  const states = problems
+    .map((p) => p.reviewState)
+    .filter((s): s is { state: string } => Boolean(s));
+
+  let journeyUser = user;
   if (
-    fresh.journeyStartedAt &&
-    fresh.progressiveUnlock &&
-    (!fresh.journeyDifficulty || !fresh.journeyTrack)
+    user.journeyStartedAt &&
+    user.progressiveUnlock &&
+    (!user.journeyDifficulty || !user.journeyTrack)
   ) {
-    const active = await resolveActiveJourneyFilters(fresh);
+    const active = await resolveActiveJourneyFilters(user);
     journeyUser = await prisma.user.update({
-      where: { id: fresh.id },
+      where: { id: user.id },
       data: {
-        journeyDifficulty: fresh.journeyDifficulty ?? active.difficulty,
-        journeyTrack: fresh.journeyTrack ?? active.track,
-      },
-      select: {
-        id: true,
-        xp: true,
-        streakDays: true,
-        progressiveUnlock: true,
-        journeyStartedAt: true,
-        journeyDifficulty: true,
-        journeyTrack: true,
-        geminiKeyEncrypted: true,
+        journeyDifficulty: user.journeyDifficulty ?? active.difficulty,
+        journeyTrack: user.journeyTrack ?? active.track,
       },
     });
   }
 
   const filters = await resolveActiveJourneyFilters(journeyUser);
-  const hasGeminiKey = Boolean(fresh.geminiKeyEncrypted);
+  const hasGeminiKey = Boolean(user.geminiKeyEncrypted);
 
   // #region agent log
   fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
@@ -135,7 +104,7 @@ export default async function AppLayout({
       data: {
         ms: Date.now() - t0,
         reviewCount: states.length,
-        dbHost: runtimeDbHost(),
+        driver: "ppg-or-pg",
       },
       timestamp: Date.now(),
     }),
@@ -147,8 +116,8 @@ export default async function AppLayout({
       <DifficultyProvider initialMode={filters.difficulty} locked={filters.locked}>
         <TrackProvider initialMode={filters.track} locked={filters.locked}>
           <AppShell
-            xp={fresh.xp}
-            streakDays={fresh.streakDays}
+            xp={journeyUser.xp}
+            streakDays={journeyUser.streakDays}
             morale={computeMorale(states)}
             progressiveUnlock={journeyUser.progressiveUnlock}
             filtersLocked={filters.locked}
