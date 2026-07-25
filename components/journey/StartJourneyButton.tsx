@@ -63,7 +63,7 @@ export function StartJourneyButton({
         },
         body: JSON.stringify({
           sessionId: "9e8e6e",
-          runId: "pre-fix",
+          runId: "post-fix",
           hypothesisId: "D",
           location: "StartJourneyButton.tsx:confirmStart",
           message: "start-journey client response",

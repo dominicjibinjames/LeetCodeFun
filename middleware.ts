@@ -62,10 +62,20 @@ export async function middleware(request: NextRequest) {
     .map((c) => c.name)
     .filter((n) => /auth|session|next-auth/i.test(n));
   const isHttps = request.nextUrl.protocol === "https:";
+  // Auth.js prefixes the session cookie with `__Secure-` on HTTPS. getToken defaults
+  // secureCookie=false and looks for the wrong name on Vercel, so pages can be signed-in
+  // while protected APIs 401.
+  const secureCookie =
+    cookieNames.some(
+      (n) =>
+        n === "__Secure-authjs.session-token" ||
+        n.startsWith("__Secure-authjs.session-token."),
+    ) || isHttps;
 
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,
+    secureCookie,
   });
   // #region agent log
   const tokenSecure = await getToken({
@@ -86,7 +96,7 @@ export async function middleware(request: NextRequest) {
     },
     body: JSON.stringify({
       sessionId: "9e8e6e",
-      runId: "pre-fix",
+      runId: "post-fix",
       hypothesisId: "A",
       location: "middleware.ts:getToken",
       message: "middleware auth check for protected API",
@@ -95,9 +105,10 @@ export async function middleware(request: NextRequest) {
         method: request.method,
         hasSecret,
         isHttps,
+        secureCookie,
         cookieNames,
-        defaultHasToken: Boolean(token),
-        defaultHasAppUserId: Boolean(token?.appUserId),
+        resolvedHasToken: Boolean(token),
+        resolvedHasAppUserId: Boolean(token?.appUserId),
         secureHasToken: Boolean(tokenSecure),
         secureHasAppUserId: Boolean(tokenSecure?.appUserId),
         insecureHasToken: Boolean(tokenInsecure),
@@ -118,12 +129,13 @@ export async function middleware(request: NextRequest) {
       },
       body: JSON.stringify({
         sessionId: "9e8e6e",
-        runId: "pre-fix",
+        runId: "post-fix",
         hypothesisId: "A",
         location: "middleware.ts:401",
-        message: "rejecting protected API — no appUserId on default getToken",
+        message: "rejecting protected API — no appUserId on resolved getToken",
         data: {
           pathname,
+          secureCookie,
           wouldPassWithSecure: Boolean(tokenSecure?.appUserId),
           wouldPassWithInsecure: Boolean(tokenInsecure?.appUserId),
         },
