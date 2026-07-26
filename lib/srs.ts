@@ -1,9 +1,11 @@
-export const BOX_INTERVALS_DAYS = [1, 3, 7, 14, 30] as const;
+/** Spaced repetition ladder: 1 day → 7 days → 10 days (cap). */
+export const BOX_INTERVALS_DAYS = [1, 7, 10] as const;
+export const MAX_BOX = BOX_INTERVALS_DAYS.length;
 
 export type BuildingState = "unattempted" | "built" | "fire" | "rubble";
 
 export function intervalForBox(box: number): number {
-  const idx = Math.min(Math.max(box, 1), 5) - 1;
+  const idx = Math.min(Math.max(box, 1), MAX_BOX) - 1;
   return BOX_INTERVALS_DAYS[idx];
 }
 
@@ -70,7 +72,7 @@ export function promoteBox(currentBox: number): {
   state: BuildingState;
   fireSince: null;
 } {
-  const box = Math.min(currentBox + 1, 5);
+  const box = Math.min(currentBox + 1, MAX_BOX);
   return {
     box,
     nextReviewDate: nextReviewDate(new Date(), box),

@@ -7,6 +7,7 @@ const PROTECTED_API_PREFIXES = [
   "/api/problems/",
   "/api/user/",
   "/api/queue",
+  "/api/pathway",
   "/api/activity/",
   "/api/push/",
 ];
@@ -24,7 +25,14 @@ function requiresSession(pathname: string, method: string): boolean {
   if (pathname.includes("/attempt") || pathname.includes("/reset")) return true;
   if (pathname.startsWith("/api/user/")) return true;
   if (pathname.startsWith("/api/push/")) return true;
-  if (pathname === "/api/queue" || pathname.startsWith("/api/activity")) return true;
+  if (
+    pathname === "/api/queue" ||
+    pathname === "/api/pathway" ||
+    pathname.startsWith("/api/pathway/") ||
+    pathname.startsWith("/api/activity")
+  ) {
+    return true;
+  }
   if (
     pathname.includes("/use-cases") ||
     pathname.includes("/nudge") ||

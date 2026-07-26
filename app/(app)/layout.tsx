@@ -14,30 +14,9 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // #region agent log
-  const t0 = Date.now();
-  // #endregion
   const user = await getOptionalUser();
 
   if (!user) {
-    // #region agent log
-    fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Debug-Session-Id": "9e8e6e",
-      },
-      body: JSON.stringify({
-        sessionId: "9e8e6e",
-        runId: "perf",
-        hypothesisId: "P",
-        location: "layout.tsx:guest",
-        message: "app layout guest timing",
-        data: { ms: Date.now() - t0 },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion
     return (
       <DebugProvider>
         <DifficultyProvider initialMode="all" locked={false}>
@@ -87,29 +66,6 @@ export default async function AppLayout({
 
   const filters = await resolveActiveJourneyFilters(journeyUser);
   const hasGeminiKey = Boolean(user.geminiKeyEncrypted);
-
-  // #region agent log
-  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Debug-Session-Id": "9e8e6e",
-    },
-    body: JSON.stringify({
-      sessionId: "9e8e6e",
-      runId: "perf",
-      hypothesisId: "P",
-      location: "layout.tsx:signed-in",
-      message: "app layout signed-in timing",
-      data: {
-        ms: Date.now() - t0,
-        reviewCount: states.length,
-        driver: "ppg-or-pg",
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
 
   return (
     <DebugProvider>

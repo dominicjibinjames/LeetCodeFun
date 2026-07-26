@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { sendPushToUser } from "@/lib/push";
-import { estDayKey } from "@/lib/activity-time";
+import { buildReviewReminderPayload } from "@/lib/push-reminders";
 
 export async function GET(request: Request) {
   const secret = process.env.CRON_SECRET;
@@ -17,24 +17,13 @@ export async function GET(request: Request) {
 
   let notified = 0;
   for (const u of users) {
-    const [fire, rubble, invaders] = await Promise.all([
-      prisma.reviewState.count({ where: { userId: u.id, state: "fire" } }),
-      prisma.reviewState.count({ where: { userId: u.id, state: "rubble" } }),
-      prisma.dailyConquest.count({
-        where: { userId: u.id, estDay: estDayKey() },
-      }),
-    ]);
-
-    const parts: string[] = [];
-    if (fire > 0) parts.push(`${fire} on fire`);
-    if (rubble > 0) parts.push(`${rubble} rubble`);
-    if (invaders > 0) parts.push(`${invaders} daily battle${invaders === 1 ? "" : "s"}`);
-    if (parts.length === 0) continue;
+    const snapshot = await buildReviewReminderPayload(u.id);
+    if (!snapshot.hasAlerts) continue;
 
     const result = await sendPushToUser(u.id, {
-      title: "Patterngard needs you",
-      body: parts.join(" · "),
-      url: "/queue",
+      title: snapshot.title,
+      body: snapshot.body,
+      url: snapshot.url,
     });
     if (result.sent > 0) notified += 1;
   }

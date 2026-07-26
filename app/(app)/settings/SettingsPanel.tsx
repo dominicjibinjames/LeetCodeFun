@@ -65,6 +65,8 @@ export function SettingsPanel({
   const [pushOn, setPushOn] = useState(initialPush);
   const [pushBusy, setPushBusy] = useState(false);
   const [pushMsg, setPushMsg] = useState<string | null>(null);
+  const [testPushBusy, setTestPushBusy] = useState(false);
+  const [testPushMsg, setTestPushMsg] = useState<string | null>(null);
 
   useEffect(() => {
     setProgressive(initialProgressiveUnlock);
@@ -226,7 +228,7 @@ export function SettingsPanel({
                   }
                   const perm = await Notification.requestPermission();
                   if (perm !== "granted") throw new Error("Notification permission denied");
-                  const reg = await navigator.serviceWorker.register("/sw.js");
+                  const reg = await navigator.serviceWorker.register("/sw.js?v=icon1");
                   await navigator.serviceWorker.ready;
                   const vapid = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
                   if (!vapid) throw new Error("VAPID public key not configured");
@@ -476,6 +478,48 @@ export function SettingsPanel({
                   onChange={(e) => setMoraleOverride(Number(e.target.value) / 100)}
                 />
               </label>
+            </div>
+
+            <div className="space-y-3 border-t border-[#b0893d]/35 pt-4">
+              <h3 className="font-display text-base">Test push notification</h3>
+              <p className="text-sm text-[var(--ink-muted)]">
+                Sends the same reminder the daily cron would: fire, rubble, and today&apos;s battles
+                based on your current progress. If the realm is calm, you&apos;ll get a calm message
+                instead.
+              </p>
+              <button
+                type="button"
+                className="btn-primary text-sm"
+                disabled={isGuest || testPushBusy}
+                onClick={async () => {
+                  setTestPushBusy(true);
+                  setTestPushMsg(null);
+                  try {
+                    const res = await fetch("/api/push/test", { method: "POST" });
+                    const data = await res.json().catch(() => ({}));
+                    if (!res.ok) throw new Error(data.error ?? "Test push failed");
+                    const counts = [
+                      typeof data.fire === "number" ? `${data.fire} fire` : null,
+                      typeof data.rubble === "number" ? `${data.rubble} rubble` : null,
+                      typeof data.invaders === "number" ? `${data.invaders} battle` : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ");
+                    setTestPushMsg(
+                      `Sent ${data.sent ?? 0}: “${data.body ?? "ok"}”` +
+                        (counts ? ` (${counts})` : "") +
+                        (data.failed ? ` · ${data.failed} failed` : ""),
+                    );
+                  } catch (e) {
+                    setTestPushMsg(e instanceof Error ? e.message : "Test push failed");
+                  } finally {
+                    setTestPushBusy(false);
+                  }
+                }}
+              >
+                {testPushBusy ? "Sending…" : "Send test notification"}
+              </button>
+              {testPushMsg ? <p className="text-xs text-[var(--ink-muted)]">{testPushMsg}</p> : null}
             </div>
           </div>
         )}

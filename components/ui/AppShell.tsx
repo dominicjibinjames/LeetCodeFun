@@ -58,6 +58,9 @@ export function AppShell({
             <Link href="/queue" className="hover:text-[var(--ember)]">
               Daily Queue
             </Link>
+            <Link href="/pathway" className="hover:text-[var(--ember)]">
+              Pathway
+            </Link>
             <Link href="/mastery" className="hover:text-[var(--ember)]">
               Mastery
             </Link>

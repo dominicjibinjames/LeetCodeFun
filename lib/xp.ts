@@ -12,6 +12,7 @@ import {
   XP_CLEAN_SOLVE,
   XP_COURT_OVERTIME,
   XP_MISS,
+  MAX_BOX,
   initialBuild,
   isReviewDue,
   markFire,
@@ -65,6 +66,13 @@ export async function touchStreak(userId: string) {
 /** Promote due reviews / overdue fires. Deduped once per userId per request. */
 export const syncReviewStates = cache(async (userId: string) => {
   await promoteMissedConquestsToFire(userId);
+
+  // Clamp legacy Leitner boxes (old max was 5) down to the 1/7/10 ladder (max 3).
+  // Do not rewrite nextReviewDate — new intervals apply on next promote/rebuild.
+  await prisma.reviewState.updateMany({
+    where: { userId, box: { gt: MAX_BOX } },
+    data: { box: MAX_BOX },
+  });
 
   const today = estDayKey();
   const states = await prisma.reviewState.findMany({

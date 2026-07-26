@@ -34,7 +34,7 @@ Turn LeetCode pattern practice into a fantasy kingdom: each problem is a buildin
 
 ## Spaced repetition
 
-Leitner boxes with intervals (1 / 3 / 7 / 14 / 30 days). Due reviews → fire; grace miss / failed review → rubble; rebuild requires a clean re-solve.
+Leitner boxes with intervals (1 / 7 / 10 days; cap at 10). Due reviews → fire; grace miss / failed review → rubble; rebuild requires a clean re-solve.
 
 ## Notifications
 

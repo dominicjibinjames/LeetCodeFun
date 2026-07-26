@@ -23,6 +23,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Kingdom of Patterngard",
   description: "Gamified LeetCode pattern practice with spaced repetition",
+  icons: {
+    icon: [{ url: "/icons/patterngard-192.png", sizes: "192x192", type: "image/png" }],
+    apple: [{ url: "/icons/patterngard-192.png", sizes: "192x192", type: "image/png" }],
+  },
 };
 
 export default function RootLayout({
