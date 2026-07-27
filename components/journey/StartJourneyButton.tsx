@@ -11,10 +11,8 @@ import type { TrackMode } from "@/lib/track-mode";
 
 type Props = {
   started: boolean;
-  /** Prior journey finished or leaving mid-path — pick new difficulty/track without wiping builds. */
+  /** Prior journey finished — pick new difficulty/track without wiping builds. */
   restart?: boolean;
-  /** Mid-journey abandon (vs finishing a filter set). Only affects copy. */
-  leavePathway?: boolean;
   /** Hide helper blurb (e.g. Realm header under the clock). */
   compact?: boolean;
   label?: string;
@@ -23,7 +21,6 @@ type Props = {
 export function StartJourneyButton({
   started,
   restart = false,
-  leavePathway = false,
   compact = false,
   label,
 }: Props) {
@@ -71,24 +68,11 @@ export function StartJourneyButton({
   }
 
   const buttonLabel =
-    label ??
-    (leavePathway
-      ? "Leave this pathway"
-      : restart
-        ? "Start another journey"
-        : "Start your journey");
+    label ?? (restart ? "Start another journey" : "Start your journey");
 
-  const dialogTitle = leavePathway
-    ? "Leave pathway & choose another"
-    : restart
-      ? "Choose your next journey"
-      : "Choose your journey";
+  const dialogTitle = restart ? "Choose your next journey" : "Choose your journey";
 
-  const confirmLabel = leavePathway
-    ? "Leave & begin anew"
-    : restart
-      ? "Begin next journey"
-      : "Begin Day 1";
+  const confirmLabel = restart ? "Begin next journey" : "Begin Day 1";
 
   return (
     <div className="space-y-2">
@@ -104,11 +88,6 @@ export function StartJourneyButton({
         <p className="text-xs text-[var(--ink-muted)] max-w-md">
           Begin Day 1. Each day brings up to three foreign invaders to battle. Miss them and
           their camps catch fire; leave fires for three days and buildings crumble to rubble.
-        </p>
-      ) : !compact && leavePathway ? (
-        <p className="text-xs text-[var(--ink-muted)] max-w-md">
-          Switch difficulty or roadmap without wiping the kingdom. Built buildings stay; today&apos;s
-          invaders re-roll for the new path. Fire and rubble you already have still need clearing.
         </p>
       ) : !compact && restart ? (
         <p className="text-xs text-[var(--ink-muted)] max-w-md">
@@ -131,9 +110,7 @@ export function StartJourneyButton({
                 {dialogTitle}
               </h2>
               <p className="mt-1 text-sm text-[var(--ink-muted)]">
-                {leavePathway
-                  ? "Your built progress is kept. Filters lock again under progressive mode until you finish the new set — or use free roam in Settings."
-                  : "These filters stay locked until you finish every matching quest in every district — or enable free roam in Settings to pick freely from the header."}
+                These filters stay locked until you finish every matching quest in every district — or enable free roam in Settings to pick freely from the header.
               </p>
             </div>
 

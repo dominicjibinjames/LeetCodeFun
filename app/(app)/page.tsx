@@ -1,5 +1,6 @@
 import { KingdomCourt } from "@/components/map/KingdomCourt";
 import { KingdomMap } from "@/components/map/KingdomMap";
+import { LeavePathwayButton } from "@/components/journey/LeavePathwayButton";
 import { StartJourneyButton } from "@/components/journey/StartJourneyButton";
 import { EstClock } from "@/components/ui/EstClock";
 import { getActivityMonth } from "@/lib/activity";
@@ -175,7 +176,7 @@ export default async function KingdomPage({ searchParams }: Props) {
           <EstClock />
           {user && journeyStarted && !journeyComplete ? (
             <div className="max-w-[14rem]">
-              <StartJourneyButton started restart leavePathway compact />
+              <LeavePathwayButton compact />
             </div>
           ) : null}
         </div>
