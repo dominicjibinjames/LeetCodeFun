@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
-import { estDayKey } from "@/lib/activity-time";
+import { dayKey } from "@/lib/activity-time";
+import { getUserTimeZone } from "@/lib/user-time";
 
 export type ReviewReminderSnapshot = {
   fire: number;
@@ -53,12 +54,17 @@ function countSuffix(fire: number, rubble: number, invaders: number): string {
 /** Same copy the daily cron / debug test use — driven by current kingdom state. */
 export async function buildReviewReminderPayload(
   userId: string,
+  timeZone?: string,
 ): Promise<ReviewReminderSnapshot> {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const tz = timeZone ?? (user ? getUserTimeZone(user) : "America/New_York");
+  const today = dayKey(new Date(), tz);
+
   const [fire, rubble, invaders] = await Promise.all([
     prisma.reviewState.count({ where: { userId, state: "fire" } }),
     prisma.reviewState.count({ where: { userId, state: "rubble" } }),
     prisma.dailyConquest.count({
-      where: { userId, estDay: estDayKey() },
+      where: { userId, estDay: today },
     }),
   ]);
 

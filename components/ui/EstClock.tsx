@@ -3,8 +3,13 @@
 import { useEffect, useState } from "react";
 import { EST_TZ } from "@/lib/activity-time";
 
-export function EstClock() {
+type Props = {
+  timeZone?: string;
+};
+
+export function EstClock({ timeZone = EST_TZ }: Props) {
   const [now, setNow] = useState<Date | null>(null);
+  const tz = timeZone || EST_TZ;
 
   useEffect(() => {
     setNow(new Date());
@@ -16,7 +21,7 @@ export function EstClock() {
     return (
       <div className="rounded border border-[#b0893d]/45 bg-[#fff8ee]/70 px-2 py-1.5 text-center">
         <div className="font-display text-[9px] uppercase tracking-wider text-[var(--ink-muted)]">
-          Eastern Time
+          Local time
         </div>
         <div className="font-display text-sm tabular-nums text-[var(--ink)]">—:—:—</div>
       </div>
@@ -24,7 +29,7 @@ export function EstClock() {
   }
 
   const time = new Intl.DateTimeFormat("en-US", {
-    timeZone: EST_TZ,
+    timeZone: tz,
     hour: "numeric",
     minute: "2-digit",
     second: "2-digit",
@@ -32,24 +37,25 @@ export function EstClock() {
   }).format(now);
 
   const date = new Intl.DateTimeFormat("en-US", {
-    timeZone: EST_TZ,
+    timeZone: tz,
     weekday: "short",
     month: "short",
     day: "numeric",
   }).format(now);
 
-  const zone = new Intl.DateTimeFormat("en-US", {
-    timeZone: EST_TZ,
-    timeZoneName: "short",
-  })
-    .formatToParts(now)
-    .find((p) => p.type === "timeZoneName")?.value ?? "ET";
+  const zone =
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: tz,
+      timeZoneName: "short",
+    })
+      .formatToParts(now)
+      .find((p) => p.type === "timeZoneName")?.value ?? "local";
 
   return (
     <div
       className="rounded border border-[#b0893d]/45 bg-[#fff8ee]/70 px-2 py-1.5 text-center shadow-sm"
       aria-live="polite"
-      title="America/New_York"
+      title={tz}
     >
       <div className="font-display text-[9px] uppercase tracking-wider text-[var(--ink-muted)]">
         {zone} · {date}

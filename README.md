@@ -67,7 +67,7 @@ Drop PNGs into `docs/screenshots/` with those filenames (see placeholders in tha
 1. Create a Neon / Prisma Postgres database → `DATABASE_URL`.
 2. Set env vars from `.env.example` (OAuth, `AUTH_SECRET`, `ENCRYPTION_KEY`, VAPID, `CRON_SECRET`).
 3. Deploy. Run `npx prisma migrate deploy` against production.
-4. Cron: [`vercel.json`](vercel.json) hits `/api/cron/review-reminders` daily at 12:00 UTC ≈ 8:00 AM Eastern (EDT) (Authorization: `Bearer CRON_SECRET`).
+4. Cron: [`vercel.json`](vercel.json) hits `/api/cron/review-reminders` hourly (Authorization: `Bearer CRON_SECRET`). Each user is notified at their Settings notify hour in their timezone (default 8:00 America/New_York).
 
 Problems are seeded **per user on first OAuth login** (not a global seed for all visitors).
 

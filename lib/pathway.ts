@@ -1,9 +1,10 @@
 import { prisma } from "@/lib/prisma";
-import { estDayKey, estNoonAnchor } from "@/lib/activity-time";
+import { dayKey, dayNoonAnchor } from "@/lib/activity-time";
 import { ensureTodayConquests } from "@/lib/daily-conquest";
 import { type DifficultyMode } from "@/lib/difficulty-mode";
 import { type TrackMode } from "@/lib/track-mode";
 import { BOX_INTERVALS_DAYS, intervalForBox } from "@/lib/srs";
+import { getUserTimeZone } from "@/lib/user-time";
 import { syncReviewStates } from "@/lib/xp";
 
 export const PATHWAY_HORIZON_DAYS = 45;
@@ -90,7 +91,8 @@ export async function getPathway(
   trackMode: TrackMode,
 ): Promise<PathwayPayload> {
   const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
-  const todayKey = estDayKey();
+  const tz = getUserTimeZone(user);
+  const todayKey = dayKey(new Date(), tz);
 
   if (!user.journeyStartedAt) {
     return {
@@ -103,7 +105,7 @@ export async function getPathway(
   }
 
   await syncReviewStates(userId);
-  await ensureTodayConquests(userId, difficultyMode, trackMode);
+  await ensureTodayConquests(userId, difficultyMode, trackMode, tz);
 
   const now = new Date();
   const [fireRows, rubbleRows, upcomingRows, conquests] = await Promise.all([
@@ -159,7 +161,7 @@ export async function getPathway(
   const dueByDay = new Map<string, PathwayItem[]>();
   for (const item of upcoming) {
     if (!item.nextReviewDate) continue;
-    const key = estDayKey(new Date(item.nextReviewDate));
+    const key = dayKey(new Date(item.nextReviewDate), tz);
     const list = dueByDay.get(key) ?? [];
     list.push(item);
     dueByDay.set(key, list);
@@ -177,7 +179,10 @@ export async function getPathway(
       rubble: isToday ? rubble : [],
       dueReviews: dueByDay.get(cursor) ?? [],
     });
-    cursor = estDayKey(new Date(estNoonAnchor(cursor).getTime() + 24 * 60 * 60 * 1000));
+    cursor = dayKey(
+      new Date(dayNoonAnchor(cursor, tz).getTime() + 24 * 60 * 60 * 1000),
+      tz,
+    );
   }
 
   return {

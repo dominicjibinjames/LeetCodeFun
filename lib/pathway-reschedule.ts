@@ -1,28 +1,51 @@
 import { prisma } from "@/lib/prisma";
-import { estDayKey, estNoonAnchor } from "@/lib/activity-time";
+import { dayKey, dayNoonAnchor } from "@/lib/activity-time";
 import { PATHWAY_HORIZON_DAYS } from "@/lib/pathway";
+import { getUserTimeZone } from "@/lib/user-time";
 
-/** ~9:00 America/New_York on the given EST calendar day (matches SRS scheduling feel). */
-export function reviewDateForEstDay(dayKey: string): Date {
-  const [y, m, d] = dayKey.split("-").map(Number);
-  for (const hour of [13, 14, 12, 15, 16]) {
+/** ~9:00 local on the given calendar day in `timeZone` (matches SRS scheduling feel). */
+export function reviewDateForDay(dayKeyStr: string, timeZone: string): Date {
+  const [y, m, d] = dayKeyStr.split("-").map(Number);
+  for (const hour of [13, 14, 12, 15, 16, 11, 17, 10, 18, 9, 19]) {
     const candidate = new Date(Date.UTC(y, m - 1, d, hour, 0, 0));
-    if (estDayKey(candidate) === dayKey) return candidate;
+    if (dayKey(candidate, timeZone) === dayKeyStr) {
+      const hourPart = new Intl.DateTimeFormat("en-US", {
+        timeZone,
+        hour: "numeric",
+        hourCycle: "h23",
+      })
+        .formatToParts(candidate)
+        .find((p) => p.type === "hour")?.value;
+      const localH = Number(hourPart);
+      if (localH >= 8 && localH <= 10) return candidate;
+    }
   }
-  return estNoonAnchor(dayKey);
+  return dayNoonAnchor(dayKeyStr, timeZone);
 }
 
-function isWithinHorizon(targetDay: string, todayKey: string): boolean {
+/** @deprecated Prefer reviewDateForDay(dayKey, timeZone). */
+export function reviewDateForEstDay(dayKeyStr: string): Date {
+  return reviewDateForDay(dayKeyStr, "America/New_York");
+}
+
+function isWithinHorizon(
+  targetDay: string,
+  todayKey: string,
+  timeZone: string,
+): boolean {
   let cursor = todayKey;
   for (let i = 0; i < PATHWAY_HORIZON_DAYS; i += 1) {
     if (cursor === targetDay) return true;
-    cursor = estDayKey(new Date(estNoonAnchor(cursor).getTime() + 24 * 60 * 60 * 1000));
+    cursor = dayKey(
+      new Date(dayNoonAnchor(cursor, timeZone).getTime() + 24 * 60 * 60 * 1000),
+      timeZone,
+    );
   }
   return false;
 }
 
 /**
- * Move a built (upcoming) review to a different EST day.
+ * Move a built (upcoming) review to a different local calendar day.
  * Fire / rubble / battles cannot be rescheduled this way.
  */
 export async function rescheduleBuiltReview(
@@ -34,11 +57,14 @@ export async function rescheduleBuiltReview(
     return { ok: false, error: "Invalid date", status: 400 };
   }
 
-  const todayKey = estDayKey();
-  if (!isWithinHorizon(targetEstDay, todayKey)) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (!user) return { ok: false, error: "User not found", status: 404 };
+  const tz = getUserTimeZone(user);
+  const todayKey = dayKey(new Date(), tz);
+  if (!isWithinHorizon(targetEstDay, todayKey, tz)) {
     return {
       ok: false,
-      error: `Target day must be within the next ${PATHWAY_HORIZON_DAYS} EST days`,
+      error: `Target day must be within the next ${PATHWAY_HORIZON_DAYS} days`,
       status: 400,
     };
   }
@@ -69,7 +95,7 @@ export async function rescheduleBuiltReview(
     };
   }
 
-  const nextReviewDate = reviewDateForEstDay(targetEstDay);
+  const nextReviewDate = reviewDateForDay(targetEstDay, tz);
   await prisma.reviewState.update({
     where: { id: review.id },
     data: { nextReviewDate },
@@ -78,6 +104,6 @@ export async function rescheduleBuiltReview(
   return {
     ok: true,
     nextReviewDate: nextReviewDate.toISOString(),
-    estDay: estDayKey(nextReviewDate),
+    estDay: dayKey(nextReviewDate, tz),
   };
 }

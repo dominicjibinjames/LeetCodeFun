@@ -1,30 +1,36 @@
 import { prisma } from "./prisma";
 import {
-  estDayKey,
-  estDayUtcRange,
-  estNoonAnchor,
+  EST_TZ,
+  dayKey,
+  dayNoonAnchor,
+  dayUtcRange,
   type ActivityDay,
 } from "./activity-time";
 import { CALENDAR_MAX, CALENDAR_MIN } from "./calendar-bounds";
+import { getUserTimeZone } from "./user-time";
 
 export type { ActivityDay };
 export { EST_TZ, estDayKey, estDayUtcRange } from "./activity-time";
 export { CALENDAR_MIN, CALENDAR_MAX } from "./calendar-bounds";
 
-export function calendarWindowBounds(_journeyStartedAt?: Date | null) {
+export function calendarWindowBounds(
+  _journeyStartedAt?: Date | null,
+  timeZone: string = EST_TZ,
+) {
   return {
     minMonth: { year: CALENDAR_MIN.year, month: CALENDAR_MIN.month },
     maxMonth: { year: CALENDAR_MAX.year, month: CALENDAR_MAX.month },
-    todayKey: estDayKey(),
+    todayKey: dayKey(new Date(), timeZone),
   };
 }
 
-/** Days in an EST calendar month (1–12), plus today ask/count. */
+/** Days in a calendar month (1–12) in the user's timezone, plus today ask/count. */
 export async function getActivityMonth(
   userId: string,
   year: number,
   month: number,
   journeyStartedAt?: Date | null,
+  timeZone?: string,
 ): Promise<{
   days: ActivityDay[];
   todayCount: number;
@@ -34,25 +40,26 @@ export async function getActivityMonth(
   minMonth: { year: number; month: number };
   maxMonth: { year: number; month: number };
 }> {
-  const bounds = calendarWindowBounds(journeyStartedAt);
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const tz = timeZone ?? (user ? getUserTimeZone(user) : EST_TZ);
+  const bounds = calendarWindowBounds(journeyStartedAt, tz);
   const y = year;
   const m = month;
 
   const keys: string[] = [];
-  // Walk from day 1 of month until month rolls
   let day = 1;
   for (;;) {
     const key = `${y}-${String(m).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-    const noon = estNoonAnchor(key);
-    const check = estDayKey(noon);
+    const noon = dayNoonAnchor(key, tz);
+    const check = dayKey(noon, tz);
     if (!check.startsWith(`${y}-${String(m).padStart(2, "0")}`)) break;
     keys.push(check);
     day += 1;
     if (day > 31) break;
   }
 
-  const rangeStart = estDayUtcRange(keys[0]!).start;
-  const rangeEnd = estDayUtcRange(keys[keys.length - 1]!).end;
+  const rangeStart = dayUtcRange(keys[0]!, tz).start;
+  const rangeEnd = dayUtcRange(keys[keys.length - 1]!, tz).end;
   const attempts = await prisma.attempt.findMany({
     where: {
       userId,
@@ -64,7 +71,7 @@ export async function getActivityMonth(
   const byDaySolves = new Map<string, number>();
   const byDayAttempts = new Map<string, number>();
   for (const a of attempts) {
-    const k = estDayKey(a.date);
+    const k = dayKey(a.date, tz);
     byDayAttempts.set(k, (byDayAttempts.get(k) ?? 0) + 1);
     if (a.passedLeetCode === true) {
       byDaySolves.set(k, (byDaySolves.get(k) ?? 0) + 1);
@@ -76,12 +83,12 @@ export async function getActivityMonth(
     count: byDaySolves.get(date) ?? 0,
     attempts: byDayAttempts.get(date) ?? 0,
   }));
-  const today = estDayKey();
-  const dailyAsk = await getDailyAsk(userId);
+  const today = dayKey(new Date(), tz);
+  const dailyAsk = await getDailyAsk(userId, tz);
 
   let todayCount = byDaySolves.get(today) ?? 0;
   if (!keys.includes(today)) {
-    todayCount = await countSolvesOnEstDay(userId, today);
+    todayCount = await countSolvesOnEstDay(userId, today, tz);
   }
 
   return {
@@ -99,17 +106,20 @@ export async function getActivityMonth(
 export async function getActivityCalendar(
   userId: string,
   weeks = 15,
+  timeZone?: string,
 ): Promise<{ days: ActivityDay[]; todayCount: number; dailyAsk: number }> {
-  const today = estDayKey();
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const tz = timeZone ?? (user ? getUserTimeZone(user) : EST_TZ);
+  const today = dayKey(new Date(), tz);
   const keys: string[] = [];
   let key = today;
   for (let i = 0; i < weeks * 7; i++) {
     keys.unshift(key);
-    const prev = new Date(estNoonAnchor(key).getTime() - 24 * 60 * 60 * 1000);
-    key = estDayKey(prev);
+    const prev = new Date(dayNoonAnchor(key, tz).getTime() - 24 * 60 * 60 * 1000);
+    key = dayKey(prev, tz);
   }
 
-  const rangeStart = estDayUtcRange(keys[0]!).start;
+  const rangeStart = dayUtcRange(keys[0]!, tz).start;
   const attempts = await prisma.attempt.findMany({
     where: {
       userId,
@@ -121,7 +131,7 @@ export async function getActivityCalendar(
   const byDaySolves = new Map<string, number>();
   const byDayAttempts = new Map<string, number>();
   for (const a of attempts) {
-    const k = estDayKey(a.date);
+    const k = dayKey(a.date, tz);
     byDayAttempts.set(k, (byDayAttempts.get(k) ?? 0) + 1);
     if (a.passedLeetCode === true) {
       byDaySolves.set(k, (byDaySolves.get(k) ?? 0) + 1);
@@ -133,7 +143,7 @@ export async function getActivityCalendar(
     count: byDaySolves.get(date) ?? 0,
     attempts: byDayAttempts.get(date) ?? 0,
   }));
-  const dailyAsk = await getDailyAsk(userId);
+  const dailyAsk = await getDailyAsk(userId, tz);
   return {
     days,
     todayCount: byDaySolves.get(today) ?? 0,
@@ -142,11 +152,12 @@ export async function getActivityCalendar(
 }
 
 /** What the day asks: due reviews + today's conquest quota (or remaining invaders). */
-export async function getDailyAsk(userId: string): Promise<number> {
+export async function getDailyAsk(userId: string, timeZone?: string): Promise<number> {
   const newPerDay = Number(process.env.NEW_PROBLEMS_PER_DAY ?? 3);
   const now = new Date();
   const user = await prisma.user.findUnique({ where: { id: userId } });
   if (!user?.journeyStartedAt) return Math.max(1, newPerDay);
+  const tz = timeZone ?? getUserTimeZone(user);
 
   const dueCount = await prisma.reviewState.count({
     where: {
@@ -159,14 +170,18 @@ export async function getDailyAsk(userId: string): Promise<number> {
     },
   });
   const todayConquests = await prisma.dailyConquest.count({
-    where: { userId, estDay: estDayKey() },
+    where: { userId, estDay: dayKey(now, tz) },
   });
   return Math.max(1, dueCount + (todayConquests || newPerDay));
 }
 
-/** All attempts on an EST day (passed + failed). */
-export async function countAttemptsOnEstDay(userId: string, dayKey: string): Promise<number> {
-  const { start, end } = estDayUtcRange(dayKey);
+/** All attempts on a calendar day (passed + failed). */
+export async function countAttemptsOnEstDay(
+  userId: string,
+  dayKeyStr: string,
+  timeZone: string = EST_TZ,
+): Promise<number> {
+  const { start, end } = dayUtcRange(dayKeyStr, timeZone);
   return prisma.attempt.count({
     where: {
       userId,
@@ -175,9 +190,13 @@ export async function countAttemptsOnEstDay(userId: string, dayKey: string): Pro
   });
 }
 
-/** Passed solves only on an EST day (quest log / overtime). */
-export async function countSolvesOnEstDay(userId: string, dayKey: string): Promise<number> {
-  const { start, end } = estDayUtcRange(dayKey);
+/** Passed solves only on a calendar day (quest log / overtime). */
+export async function countSolvesOnEstDay(
+  userId: string,
+  dayKeyStr: string,
+  timeZone: string = EST_TZ,
+): Promise<number> {
+  const { start, end } = dayUtcRange(dayKeyStr, timeZone);
   return prisma.attempt.count({
     where: {
       userId,

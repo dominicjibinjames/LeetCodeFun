@@ -49,7 +49,7 @@ Chat route rate-limits ~20 req/min/user ([`lib/rate-limit.ts`](../lib/rate-limit
 
 - Client registers [`public/sw.js`](../public/sw.js), subscribes with VAPID public key.
 - Server: [`lib/push.ts`](../lib/push.ts) + `web-push`.
-- Cron: [`vercel.json`](../vercel.json) daily at 12:00 UTC (8:00 AM Eastern during EDT).
+- Cron: [`vercel.json`](../vercel.json) hourly (`0 * * * *`). Each tick notifies users whose local hour matches `notifyHourLocal` (default 8) in their `timezone`.
 
 ## Deploy checklist
 

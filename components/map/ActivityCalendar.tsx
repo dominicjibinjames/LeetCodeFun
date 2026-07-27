@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { ActivityDay } from "@/lib/activity-time";
-import { estDayKey } from "@/lib/activity-time";
+import { dayKey } from "@/lib/activity-time";
 import { CALENDAR_MAX, CALENDAR_MIN } from "@/lib/calendar-bounds";
 
 type Props = {
@@ -11,6 +11,8 @@ type Props = {
   dailyAsk: number;
   year: number;
   month: number;
+  /** YYYY-MM-DD in the viewer's timezone */
+  todayKey?: string;
 };
 
 function level(count: number): number {
@@ -57,6 +59,7 @@ export function ActivityCalendar({
   dailyAsk: initialDailyAsk,
   year: initialYear,
   month: initialMonth,
+  todayKey: todayKeyProp,
 }: Props) {
   const [year, setYear] = useState(initialYear);
   const [month, setMonth] = useState(initialMonth);
@@ -65,7 +68,7 @@ export function ActivityCalendar({
   const [dailyAsk, setDailyAsk] = useState(initialDailyAsk);
   const [hover, setHover] = useState<ActivityDay | null>(null);
   const [pending, setPending] = useState(false);
-  const today = estDayKey();
+  const today = todayKeyProp ?? dayKey();
 
   useEffect(() => {
     setYear(initialYear);

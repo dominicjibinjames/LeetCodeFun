@@ -1,7 +1,8 @@
 import { cache } from "react";
 import { prisma } from "./prisma";
-import { countSolvesOnEstDay, estDayKey, getDailyAsk } from "./activity";
-import { estDayDiff, ensureTodayConquests, promoteMissedConquestsToFire } from "./daily-conquest";
+import { countSolvesOnEstDay, getDailyAsk } from "./activity";
+import { dayDiff, dayKey } from "./activity-time";
+import { ensureTodayConquests, promoteMissedConquestsToFire } from "./daily-conquest";
 import { tracksForBuildingSlot } from "./catalog-tracks";
 import { type DifficultyMode } from "./difficulty-mode";
 import { isQuestLocked } from "./quest-filters";
@@ -20,6 +21,7 @@ import {
   resetToRubble,
 } from "./srs";
 import { getSessionUser } from "./session-user";
+import { getUserTimeZone } from "./user-time";
 
 const GRACE_DAYS = () => Number(process.env.REVIEW_GRACE_DAYS ?? 3);
 
@@ -39,17 +41,18 @@ export async function getOptionalUser() {
 
 export async function touchStreak(userId: string) {
   const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
+  const tz = getUserTimeZone(user);
   const now = new Date();
-  const todayKey = estDayKey(now);
+  const todayKey = dayKey(now, tz);
   let streakDays = user.streakDays;
 
   if (!user.lastActive) {
     streakDays = 1;
   } else {
-    const lastKey = estDayKey(user.lastActive);
-    const diff = estDayDiff(lastKey, todayKey);
+    const lastKey = dayKey(user.lastActive, tz);
+    const diff = dayDiff(lastKey, todayKey);
     if (diff === 0) {
-      // same EST day
+      // same local calendar day
     } else if (diff === 1) {
       streakDays += 1;
     } else if (diff > 1) {
@@ -65,7 +68,9 @@ export async function touchStreak(userId: string) {
 
 /** Promote due reviews / overdue fires. Deduped once per userId per request. */
 export const syncReviewStates = cache(async (userId: string) => {
-  await promoteMissedConquestsToFire(userId);
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const tz = user ? getUserTimeZone(user) : "America/New_York";
+  await promoteMissedConquestsToFire(userId, tz);
 
   // Clamp legacy Leitner boxes (old max was 5) down to the 1/7/10 ladder (max 3).
   // Do not rewrite nextReviewDate — new intervals apply on next promote/rebuild.
@@ -74,7 +79,7 @@ export const syncReviewStates = cache(async (userId: string) => {
     data: { box: MAX_BOX },
   });
 
-  const today = estDayKey();
+  const today = dayKey(new Date(), tz);
   const states = await prisma.reviewState.findMany({
     where: {
       userId,
@@ -95,8 +100,8 @@ export const syncReviewStates = cache(async (userId: string) => {
 
     if (state.state === "fire") {
       const since = state.fireSince ?? state.nextReviewDate;
-      const sinceKey = estDayKey(since);
-      if (estDayDiff(sinceKey, today) >= GRACE_DAYS()) {
+      const sinceKey = dayKey(since, tz);
+      if (dayDiff(sinceKey, today) >= GRACE_DAYS()) {
         const reset = resetToRubble();
         await prisma.reviewState.update({
           where: { id: state.id },
@@ -110,9 +115,15 @@ export const syncReviewStates = cache(async (userId: string) => {
   }
 });
 
-export function journeyDayNumber(journeyStartedAt: Date | null | undefined, now = new Date()): number | null {
+export function journeyDayNumber(
+  journeyStartedAt: Date | null | undefined,
+  now = new Date(),
+  timeZone = "America/New_York",
+): number | null {
   if (!journeyStartedAt) return null;
-  return estDayDiff(estDayKey(journeyStartedAt), estDayKey(now)) + 1;
+  return (
+    dayDiff(dayKey(journeyStartedAt, timeZone), dayKey(now, timeZone)) + 1
+  );
 }
 
 export async function startJourney(opts?: {
@@ -131,8 +142,9 @@ export async function startJourney(opts?: {
 
   // Leaving a pathway: drop today's invaders so the new filters can muster a fresh set.
   if (opts?.restart && user.journeyStartedAt) {
+    const tz = getUserTimeZone(user);
     await prisma.dailyConquest.deleteMany({
-      where: { userId: user.id, estDay: estDayKey() },
+      where: { userId: user.id, estDay: dayKey(new Date(), tz) },
     });
   }
 
@@ -146,7 +158,12 @@ export async function startJourney(opts?: {
       progressiveUnlock: true,
     },
   });
-  await ensureTodayConquests(updated.id, difficulty, track);
+  await ensureTodayConquests(
+    updated.id,
+    difficulty,
+    track,
+    getUserTimeZone(updated),
+  );
   return updated;
 }
 
@@ -283,8 +300,9 @@ export async function submitAttempt(problemId: string, payload: AttemptPayload) 
 
   let courtBonus = 0;
   if (xpDelta > 0) {
-    const todayKey = estDayKey();
-    const todayCount = await countSolvesOnEstDay(user.id, todayKey);
+    const tz = getUserTimeZone(user);
+    const todayKey = dayKey(new Date(), tz);
+    const todayCount = await countSolvesOnEstDay(user.id, todayKey, tz);
     // Extra solves (passes) beyond what the day asked → court overtime bonus
     if (todayCount > dailyAsk) {
       courtBonus = XP_COURT_OVERTIME;
@@ -336,9 +354,9 @@ export async function getDailyQueue(
     };
   }
 
-  await ensureTodayConquests(userId, difficultyMode, trackMode);
+  await ensureTodayConquests(userId, difficultyMode, trackMode, getUserTimeZone(user));
   const now = new Date();
-  const dayKey = estDayKey();
+  const todayKey = dayKey(now, getUserTimeZone(user));
 
   const due = await prisma.reviewState.findMany({
     where: {
@@ -354,7 +372,7 @@ export async function getDailyQueue(
   });
 
   const conquests = await prisma.dailyConquest.findMany({
-    where: { userId, estDay: dayKey },
+    where: { userId, estDay: todayKey },
     include: {
       problem: { include: { reviewState: true } },
     },

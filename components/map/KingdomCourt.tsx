@@ -130,6 +130,7 @@ type Props = {
   activityMonth: number;
   journeyStartedAt: string | null;
   dayNumber: number | null;
+  todayKey?: string;
 };
 
 export function KingdomCourt({
@@ -140,6 +141,7 @@ export function KingdomCourt({
   activityYear,
   activityMonth,
   dayNumber,
+  todayKey,
 }: Props) {
   const { resolveMorale, debugMode, moraleOverride } = useDebug();
   const morale = resolveMorale(realMorale);
@@ -200,6 +202,7 @@ export function KingdomCourt({
         dailyAsk={dailyAsk}
         year={activityYear}
         month={activityMonth}
+        todayKey={todayKey}
       />
     </aside>
   );

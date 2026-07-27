@@ -4,12 +4,13 @@ import { StartJourneyButton } from "@/components/journey/StartJourneyButton";
 import { EstClock } from "@/components/ui/EstClock";
 import { getActivityMonth } from "@/lib/activity";
 import { ensureTodayConquests, getTodayConquestSlots } from "@/lib/daily-conquest";
-import { unlockedDistrictIds } from "@/lib/district-progress";
+import { isJourneyComplete, unlockedDistrictIds } from "@/lib/district-progress";
 import { getDistricts } from "@/lib/districts";
 import { readDifficultyMode } from "@/lib/difficulty-server";
-import { estDayKey } from "@/lib/activity-time";
+import { dayKey } from "@/lib/activity-time";
 import { readTrackMode } from "@/lib/track-server";
 import { getUserProblemProgress } from "@/lib/user-progress";
+import { getUserTimeZone } from "@/lib/user-time";
 import {
   computeMorale,
   getOptionalUser,
@@ -27,9 +28,10 @@ export default async function KingdomPage({ searchParams }: Props) {
     readTrackMode(),
   ]);
   const params = await searchParams;
+  const tz = user ? getUserTimeZone(user) : "America/New_York";
 
   if (user?.journeyStartedAt) {
-    await ensureTodayConquests(user.id, difficultyMode, trackMode);
+    await ensureTodayConquests(user.id, difficultyMode, trackMode, tz);
   }
 
   const problems = user ? await getUserProblemProgress(user.id) : guestProblems();
@@ -38,12 +40,12 @@ export default async function KingdomPage({ searchParams }: Props) {
     ? problems.map((p) => p.reviewState).filter(Boolean)
     : [];
   const morale = user ? computeMorale(reviewStates as { state: string }[]) : 1;
-  const todayKey = estDayKey();
+  const todayKey = dayKey(new Date(), tz);
   const [ty, tm] = todayKey.split("-").map(Number);
   const calY = Number(params.calY) || ty;
   const calM = Number(params.calM) || tm;
   const activity = user
-    ? await getActivityMonth(user.id, calY, calM, user.journeyStartedAt)
+    ? await getActivityMonth(user.id, calY, calM, user.journeyStartedAt, tz)
     : {
         year: calY,
         month: calM,
@@ -51,9 +53,10 @@ export default async function KingdomPage({ searchParams }: Props) {
         todayCount: 0,
         dailyAsk: 0,
       };
-  const invadedSlots =
-    user?.journeyStartedAt ? await getTodayConquestSlots(user.id) : new Set<string>();
-  const dayN = journeyDayNumber(user?.journeyStartedAt ?? null);
+  const invadedSlots = user?.journeyStartedAt
+    ? await getTodayConquestSlots(user.id, todayKey, tz)
+    : new Set<string>();
+  const dayN = journeyDayNumber(user?.journeyStartedAt ?? null, new Date(), tz);
   const progressiveUnlock = user?.progressiveUnlock ?? true;
   const journeyStarted = Boolean(user?.journeyStartedAt);
   const streakDays = user?.streakDays ?? 0;
@@ -78,6 +81,13 @@ export default async function KingdomPage({ searchParams }: Props) {
       invadedSlots.has(p.buildingSlot) &&
       (p.reviewState?.state ?? "unattempted") === "unattempted",
   ).length;
+
+  const journeyComplete = isJourneyComplete(
+    progress,
+    difficultyMode,
+    trackMode,
+    journeyStarted,
+  );
 
   const stats = districts.map((d) => {
     const dp = problems.filter((p) => p.district === d.id);
@@ -139,7 +149,14 @@ export default async function KingdomPage({ searchParams }: Props) {
             .
           </p>
         </div>
-        <EstClock />
+        <div className="flex flex-col items-stretch gap-2 shrink-0">
+          <EstClock timeZone={tz} />
+          {user && journeyStarted && !journeyComplete ? (
+            <div className="max-w-[14rem]">
+              <StartJourneyButton started restart leavePathway compact />
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.55fr)_minmax(240px,0.7fr)] lg:items-stretch">
@@ -153,6 +170,7 @@ export default async function KingdomPage({ searchParams }: Props) {
           dailyAsk={activity.dailyAsk}
           journeyStartedAt={user?.journeyStartedAt?.toISOString() ?? null}
           dayNumber={dayN}
+          todayKey={todayKey}
         />
       </div>
 

@@ -22,6 +22,12 @@ model User {
   /** Locked journey filters while progressive mode is on */
   journeyDifficulty  String?
   journeyTrack       String?
+  /** IANA timezone for clock, game day, and push schedule */
+  timezone           String          @default("America/New_York")
+  /** Local hour (0–23) to send review push reminders */
+  notifyHourLocal    Int             @default(8)
+  /** Last local YYYY-MM-DD a review push was sent (idempotency) */
+  lastPushLocalDay   String?
   geminiKeyEncrypted String?
   problems           Problem[]
   attempts           Attempt[]

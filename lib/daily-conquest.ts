@@ -3,27 +3,24 @@ import { tracksForBuildingSlot } from "@/lib/catalog-tracks";
 import { districtUnlockOrder, unlockedDistrictIds } from "@/lib/district-progress";
 import { matchesDifficulty, type DifficultyMode } from "@/lib/difficulty-mode";
 import { matchesTrack, type TrackMode } from "@/lib/track-mode";
-import { estDayKey, estNoonAnchor } from "@/lib/activity-time";
+import { EST_TZ, dayDiff, dayKey, dayNoonAnchor } from "@/lib/activity-time";
+import { getUserTimeZone } from "@/lib/user-time";
 
 const newPerDay = () => Number(process.env.NEW_PROBLEMS_PER_DAY ?? 3);
 
-/** Inclusive EST calendar-day distance (0 = same day). */
+/** Inclusive calendar-day distance (0 = same day). */
 export function estDayDiff(earlierKey: string, laterKey: string): number {
-  if (earlierKey === laterKey) return 0;
-  let n = 0;
-  let key = earlierKey;
-  // Cap walk to avoid infinite loops on bad keys
-  while (key !== laterKey && n < 4000) {
-    const next = estDayKey(new Date(estNoonAnchor(key).getTime() + 24 * 60 * 60 * 1000));
-    key = next;
-    n += 1;
-  }
-  return n;
+  return dayDiff(earlierKey, laterKey);
 }
 
-export async function getTodayConquestSlots(userId: string, dayKey = estDayKey()): Promise<Set<string>> {
+export async function getTodayConquestSlots(
+  userId: string,
+  dayKeyStr?: string,
+  timeZone: string = EST_TZ,
+): Promise<Set<string>> {
+  const key = dayKeyStr ?? dayKey(new Date(), timeZone);
   const rows = await prisma.dailyConquest.findMany({
-    where: { userId, estDay: dayKey },
+    where: { userId, estDay: key },
     select: { buildingSlot: true },
   });
   return new Set(rows.map((r) => r.buildingSlot));
@@ -31,10 +28,12 @@ export async function getTodayConquestSlots(userId: string, dayKey = estDayKey()
 
 export async function getTodayConquestProblemIds(
   userId: string,
-  dayKey = estDayKey(),
+  dayKeyStr?: string,
+  timeZone: string = EST_TZ,
 ): Promise<Set<string>> {
+  const key = dayKeyStr ?? dayKey(new Date(), timeZone);
   const rows = await prisma.dailyConquest.findMany({
-    where: { userId, estDay: dayKey },
+    where: { userId, estDay: key },
     select: { problemId: true },
   });
   return new Set(rows.map((r) => r.problemId));
@@ -48,13 +47,15 @@ export async function ensureTodayConquests(
   userId: string,
   difficultyMode: DifficultyMode = "all",
   trackMode: TrackMode = "all",
+  timeZone?: string,
 ) {
   const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
   if (!user.journeyStartedAt) return [];
 
-  const dayKey = estDayKey();
+  const tz = timeZone ?? getUserTimeZone(user);
+  const todayKey = dayKey(new Date(), tz);
   const existing = await prisma.dailyConquest.findMany({
-    where: { userId, estDay: dayKey },
+    where: { userId, estDay: todayKey },
   });
   const quota = newPerDay();
   if (existing.length >= quota) return existing;
@@ -105,7 +106,7 @@ export async function ensureTodayConquests(
   await prisma.dailyConquest.createMany({
     data: pick.map((p) => ({
       userId,
-      estDay: dayKey,
+      estDay: todayKey,
       problemId: p.id,
       buildingSlot: p.buildingSlot,
       districtId: p.district,
@@ -114,13 +115,18 @@ export async function ensureTodayConquests(
   });
 
   return prisma.dailyConquest.findMany({
-    where: { userId, estDay: dayKey },
+    where: { userId, estDay: todayKey },
   });
 }
 
 /** Prior-day unfinished conquests → fire (with fireSince). */
-export async function promoteMissedConquestsToFire(userId: string) {
-  const today = estDayKey();
+export async function promoteMissedConquestsToFire(
+  userId: string,
+  timeZone?: string,
+) {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  const tz = timeZone ?? (user ? getUserTimeZone(user) : EST_TZ);
+  const today = dayKey(new Date(), tz);
   // Cap per request so navigation never scans unbounded history on a small
   // connection budget (direct db.prisma.io was timing out under this load).
   const missed = await prisma.dailyConquest.findMany({
@@ -137,7 +143,7 @@ export async function promoteMissedConquestsToFire(userId: string) {
   for (const row of missed) {
     const rs = row.problem.reviewState;
     if (!rs || rs.state !== "unattempted") continue;
-    const fireStart = estNoonAnchor(row.estDay);
+    const fireStart = dayNoonAnchor(row.estDay, tz);
     await prisma.reviewState.update({
       where: { id: rs.id },
       data: {

@@ -15,6 +15,8 @@ type Props = {
   restart?: boolean;
   /** Mid-journey abandon (vs finishing a filter set). Only affects copy. */
   leavePathway?: boolean;
+  /** Hide helper blurb (e.g. Realm header under the clock). */
+  compact?: boolean;
   label?: string;
 };
 
@@ -22,6 +24,7 @@ export function StartJourneyButton({
   started,
   restart = false,
   leavePathway = false,
+  compact = false,
   label,
 }: Props) {
   const router = useRouter();
@@ -89,25 +92,30 @@ export function StartJourneyButton({
 
   return (
     <div className="space-y-2">
-      <button type="button" className="btn-primary" disabled={busy} onClick={() => setOpen(true)}>
+      <button
+        type="button"
+        className={compact ? "btn-ghost text-xs py-1 w-full" : "btn-primary"}
+        disabled={busy}
+        onClick={() => setOpen(true)}
+      >
         {buttonLabel}
       </button>
-      {!restart ? (
+      {!compact && !restart ? (
         <p className="text-xs text-[var(--ink-muted)] max-w-md">
-          Begin Day 1. Each EST day brings up to three foreign invaders to battle. Miss them and
+          Begin Day 1. Each day brings up to three foreign invaders to battle. Miss them and
           their camps catch fire; leave fires for three days and buildings crumble to rubble.
         </p>
-      ) : leavePathway ? (
+      ) : !compact && leavePathway ? (
         <p className="text-xs text-[var(--ink-muted)] max-w-md">
           Switch difficulty or roadmap without wiping the kingdom. Built buildings stay; today&apos;s
           invaders re-roll for the new path. Fire and rubble you already have still need clearing.
         </p>
-      ) : (
+      ) : !compact && restart ? (
         <p className="text-xs text-[var(--ink-muted)] max-w-md">
           This filter set is complete across the kingdom. Choose Medium, Hard, or another roadmap to
           continue — built quests stay built.
         </p>
-      )}
+      ) : null}
       {error && !open ? <p className="text-xs text-[var(--ember)]">{error}</p> : null}
 
       {open ? (
