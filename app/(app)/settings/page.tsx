@@ -3,7 +3,6 @@ import { isJourneyComplete } from "@/lib/district-progress";
 import { userHasGeminiKey } from "@/lib/gemini";
 import { resolveActiveJourneyFilters } from "@/lib/journey-filters";
 import { prisma } from "@/lib/prisma";
-import { DEFAULT_NOTIFY_HOUR, DEFAULT_TIMEZONE, resolveNotifyHour, resolveTimeZone } from "@/lib/user-time";
 import { getOptionalUser } from "@/lib/xp";
 
 export default async function SettingsPage() {
@@ -19,8 +18,6 @@ export default async function SettingsPage() {
         isGuest
         hasGeminiKey={false}
         pushEnabled={false}
-        initialTimezone={DEFAULT_TIMEZONE}
-        initialNotifyHour={DEFAULT_NOTIFY_HOUR}
       />
     );
   }
@@ -53,8 +50,6 @@ export default async function SettingsPage() {
       isGuest={false}
       hasGeminiKey={await userHasGeminiKey(user.id)}
       pushEnabled={pushCount > 0}
-      initialTimezone={resolveTimeZone(user.timezone)}
-      initialNotifyHour={resolveNotifyHour(user.notifyHourLocal)}
     />
   );
 }

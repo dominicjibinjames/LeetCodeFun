@@ -8,7 +8,6 @@ import { StartJourneyButton } from "@/components/journey/StartJourneyButton";
 import { TrackToggle } from "@/components/track/TrackToggle";
 import { MuteToggle } from "@/components/ui/MuteToggle";
 import catalog from "@/data/problems/catalog.json";
-import { commonTimezones, formatHourLabel } from "@/lib/user-time";
 
 const CATALOG_TOTAL = catalog.length;
 const CATALOG_BY_DIFF = catalog.reduce(
@@ -28,8 +27,6 @@ type Props = {
   isGuest: boolean;
   hasGeminiKey: boolean;
   pushEnabled: boolean;
-  initialTimezone: string;
-  initialNotifyHour: number;
 };
 
 export function SettingsPanel({
@@ -40,8 +37,6 @@ export function SettingsPanel({
   isGuest,
   hasGeminiKey: initialHasKey,
   pushEnabled: initialPush,
-  initialTimezone,
-  initialNotifyHour,
 }: Props) {
   const router = useRouter();
   const {
@@ -72,37 +67,6 @@ export function SettingsPanel({
   const [pushMsg, setPushMsg] = useState<string | null>(null);
   const [testPushBusy, setTestPushBusy] = useState(false);
   const [testPushMsg, setTestPushMsg] = useState<string | null>(null);
-  const [timezone, setTimezone] = useState(initialTimezone);
-  const [notifyHour, setNotifyHour] = useState(initialNotifyHour);
-  const [prefsBusy, setPrefsBusy] = useState(false);
-  const [prefsMsg, setPrefsMsg] = useState<string | null>(null);
-  const zoneOptions = (() => {
-    const list: string[] = [...commonTimezones()];
-    if (timezone && !list.includes(timezone)) list.unshift(timezone);
-    return list;
-  })();
-
-  async function savePreferences(next: { timezone?: string; notifyHourLocal?: number }) {
-    setPrefsBusy(true);
-    setPrefsMsg(null);
-    try {
-      const res = await fetch("/api/user/preferences", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(next),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) throw new Error(data.error ?? "Could not save preferences");
-      if (typeof data.timezone === "string") setTimezone(data.timezone);
-      if (typeof data.notifyHourLocal === "number") setNotifyHour(data.notifyHourLocal);
-      setPrefsMsg("Saved. Day boundaries and the Realm clock follow this zone from now on.");
-      router.refresh();
-    } catch (e) {
-      setPrefsMsg(e instanceof Error ? e.message : "Could not save preferences");
-    } finally {
-      setPrefsBusy(false);
-    }
-  }
 
   useEffect(() => {
     setProgressive(initialProgressiveUnlock);
@@ -243,65 +207,6 @@ export function SettingsPanel({
       </section>
 
       <section className="panel space-y-3">
-        <h2 className="font-display text-lg">Time &amp; alerts</h2>
-        {isGuest ? (
-          <p className="text-sm text-[var(--ink-muted)]">
-            Sign in to set your timezone and daily reminder hour.
-          </p>
-        ) : (
-          <>
-            <p className="text-sm text-[var(--ink-muted)]">
-              Your timezone drives the Realm clock, today&apos;s invaders, streaks, pathway days, and
-              when push reminders fire. Changing it does not rewrite past conquest days.
-            </p>
-            <label className="block text-xs text-[var(--ink-muted)]">
-              Timezone
-              <select
-                className="mt-1 w-full rounded border border-[#8b6b3f] bg-[#fff8ee] px-3 py-2 font-display text-sm text-[var(--ink)]"
-                value={timezone}
-                disabled={prefsBusy}
-                onChange={(e) => {
-                  const next = e.target.value;
-                  setTimezone(next);
-                  void savePreferences({ timezone: next });
-                }}
-              >
-                {zoneOptions.map((z) => (
-                  <option key={z} value={z}>
-                    {z.replace(/_/g, " ")}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="block text-xs text-[var(--ink-muted)]">
-              Daily notification hour ({timezone.replace(/_/g, " ")})
-              <select
-                className="mt-1 w-full rounded border border-[#8b6b3f] bg-[#fff8ee] px-3 py-2 font-display text-sm text-[var(--ink)]"
-                value={notifyHour}
-                disabled={prefsBusy}
-                onChange={(e) => {
-                  const next = Number(e.target.value);
-                  setNotifyHour(next);
-                  void savePreferences({ notifyHourLocal: next });
-                }}
-              >
-                {Array.from({ length: 24 }, (_, h) => (
-                  <option key={h} value={h}>
-                    {formatHourLabel(h)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <p className="text-xs text-[var(--ink-muted)]">
-              Reminders send once per local day at {formatHourLabel(notifyHour)} when you have
-              battles, fire, or rubble — if this device is subscribed below.
-            </p>
-            {prefsMsg ? <p className="text-xs text-[var(--ink-muted)]">{prefsMsg}</p> : null}
-          </>
-        )}
-      </section>
-
-      <section className="panel space-y-3">
         <h2 className="font-display text-lg">Notifications</h2>
         {isGuest ? (
           <p className="text-sm text-[var(--ink-muted)]">
@@ -310,7 +215,8 @@ export function SettingsPanel({
         ) : (
           <>
             <p className="text-sm text-[var(--ink-muted)]">
-              Web push reminders for due reviews (fire), rubble, and daily invaders.
+              Web push reminders for due reviews (fire), rubble, and daily invaders. Alerts fire once
+              daily around 8:00 AM Eastern when you have something due.
             </p>
             <button
               type="button"

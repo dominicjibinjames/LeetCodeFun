@@ -3,13 +3,9 @@
 import { useEffect, useState } from "react";
 import { EST_TZ } from "@/lib/activity-time";
 
-type Props = {
-  timeZone?: string;
-};
-
-export function EstClock({ timeZone = EST_TZ }: Props) {
+/** Realm clock — fixed to America/New_York (EST/EDT). */
+export function EstClock() {
   const [now, setNow] = useState<Date | null>(null);
-  const tz = timeZone || EST_TZ;
 
   useEffect(() => {
     setNow(new Date());
@@ -21,7 +17,7 @@ export function EstClock({ timeZone = EST_TZ }: Props) {
     return (
       <div className="rounded border border-[#b0893d]/45 bg-[#fff8ee]/70 px-2 py-1.5 text-center">
         <div className="font-display text-[9px] uppercase tracking-wider text-[var(--ink-muted)]">
-          Local time
+          Eastern time
         </div>
         <div className="font-display text-sm tabular-nums text-[var(--ink)]">—:—:—</div>
       </div>
@@ -29,7 +25,7 @@ export function EstClock({ timeZone = EST_TZ }: Props) {
   }
 
   const time = new Intl.DateTimeFormat("en-US", {
-    timeZone: tz,
+    timeZone: EST_TZ,
     hour: "numeric",
     minute: "2-digit",
     second: "2-digit",
@@ -37,7 +33,7 @@ export function EstClock({ timeZone = EST_TZ }: Props) {
   }).format(now);
 
   const date = new Intl.DateTimeFormat("en-US", {
-    timeZone: tz,
+    timeZone: EST_TZ,
     weekday: "short",
     month: "short",
     day: "numeric",
@@ -45,17 +41,17 @@ export function EstClock({ timeZone = EST_TZ }: Props) {
 
   const zone =
     new Intl.DateTimeFormat("en-US", {
-      timeZone: tz,
+      timeZone: EST_TZ,
       timeZoneName: "short",
     })
       .formatToParts(now)
-      .find((p) => p.type === "timeZoneName")?.value ?? "local";
+      .find((p) => p.type === "timeZoneName")?.value ?? "ET";
 
   return (
     <div
       className="rounded border border-[#b0893d]/45 bg-[#fff8ee]/70 px-2 py-1.5 text-center shadow-sm"
       aria-live="polite"
-      title={tz}
+      title="America/New_York"
     >
       <div className="font-display text-[9px] uppercase tracking-wider text-[var(--ink-muted)]">
         {zone} · {date}

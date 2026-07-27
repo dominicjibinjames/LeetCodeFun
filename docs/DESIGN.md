@@ -38,7 +38,7 @@ Leitner boxes with intervals (1 / 7 / 10 days; cap at 10). Due reviews → fire;
 
 ## Notifications
 
-Opt-in Web Push. Hourly cron checks each subscribed user’s local notify hour (default 8:00 in their timezone) and sends fire / rubble / battle reminders once per local day.
+Opt-in Web Push. Daily cron (~8:00 AM Eastern) sends fire / rubble / battle reminders to subscribed users who have something due.
 
 ## Non-goals
 
