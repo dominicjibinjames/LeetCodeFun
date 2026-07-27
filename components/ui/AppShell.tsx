@@ -77,7 +77,7 @@ export function AppShell({
               </Link>
             ) : (
               <button type="button" className="btn-ghost text-xs py-1" onClick={logout}>
-                Leave
+                Sign out
               </button>
             )}
           </nav>

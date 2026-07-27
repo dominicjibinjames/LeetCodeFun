@@ -118,7 +118,7 @@ export function journeyDayNumber(journeyStartedAt: Date | null | undefined, now 
 export async function startJourney(opts?: {
   difficulty?: DifficultyMode;
   track?: TrackMode;
-  /** Allow a new filter set after finishing the prior journey (keeps built progress). */
+  /** Switch pathway / start another filter set (keeps built progress). */
   restart?: boolean;
 }) {
   const user = await getOrCreateUser();
@@ -127,6 +127,13 @@ export async function startJourney(opts?: {
 
   if (user.journeyStartedAt && !opts?.restart) {
     return user;
+  }
+
+  // Leaving a pathway: drop today's invaders so the new filters can muster a fresh set.
+  if (opts?.restart && user.journeyStartedAt) {
+    await prisma.dailyConquest.deleteMany({
+      where: { userId: user.id, estDay: estDayKey() },
+    });
   }
 
   const updated = await prisma.user.update({

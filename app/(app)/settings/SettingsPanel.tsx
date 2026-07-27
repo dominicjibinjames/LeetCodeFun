@@ -277,11 +277,17 @@ export function SettingsPanel({
             <StartJourneyButton started restart />
           </div>
         ) : (
-          <p className="text-sm text-[var(--ink-muted)]">
-            Your journey is underway. Daily invaders appear on The Realm and in the Daily Queue.
-            Difficulty and roadmap stay locked until this filter set is complete
-            {progressive ? "" : " (free roam lets you change them anytime from the header)"}.
-          </p>
+          <div className="space-y-3">
+            <p className="text-sm text-[var(--ink-muted)]">
+              Your journey is underway. Daily invaders appear on The Realm and in the Daily Queue.
+              Difficulty and roadmap stay locked until this filter set is complete
+              {progressive ? "" : " (free roam lets you change them anytime from the header)"}.
+            </p>
+            <div className="space-y-2 border-t border-[#b0893d]/35 pt-3">
+              <h3 className="font-display text-base">Leave this pathway</h3>
+              <StartJourneyButton started restart leavePathway />
+            </div>
+          </div>
         )}
 
         <div className="space-y-3 border-t border-[#b0893d]/35 pt-3">
