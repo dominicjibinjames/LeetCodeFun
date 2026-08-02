@@ -231,7 +231,7 @@ export function SettingsPanel({
                   }
                   const perm = await Notification.requestPermission();
                   if (perm !== "granted") throw new Error("Notification permission denied");
-                  const reg = await navigator.serviceWorker.register("/sw.js?v=icon1");
+                  const reg = await navigator.serviceWorker.register("/sw.js?v=icon2");
                   await navigator.serviceWorker.ready;
                   const vapid = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
                   if (!vapid) throw new Error("VAPID public key not configured");
@@ -503,6 +503,31 @@ export function SettingsPanel({
                   try {
                     const res = await fetch("/api/push/test", { method: "POST" });
                     const data = await res.json().catch(() => ({}));
+                    // #region agent log
+                    fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+                      method: "POST",
+                      headers: {
+                        "Content-Type": "application/json",
+                        "X-Debug-Session-Id": "9e8e6e",
+                      },
+                      body: JSON.stringify({
+                        sessionId: "9e8e6e",
+                        runId: "push-debug",
+                        hypothesisId: "D",
+                        location: "SettingsPanel.tsx:testPush",
+                        message: "test push client response",
+                        data: {
+                          status: res.status,
+                          ok: res.ok,
+                          error: typeof data.error === "string" ? data.error : null,
+                          sent: data.sent ?? null,
+                          failed: data.failed ?? null,
+                          hasAlerts: data.hasAlerts ?? null,
+                        },
+                        timestamp: Date.now(),
+                      }),
+                    }).catch(() => {});
+                    // #endregion
                     if (!res.ok) throw new Error(data.error ?? "Test push failed");
                     const counts = [
                       typeof data.fire === "number" ? `${data.fire} fire` : null,

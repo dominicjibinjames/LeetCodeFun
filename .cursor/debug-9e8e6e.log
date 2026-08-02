@@ -1,0 +1,2 @@
+{"sessionId":"9e8e6e","runId":"push-debug","timestamp":1785648506293,"hypothesisId":"B","location":"lib/push.ts:sendPushToUser","message":"sending to subscriptions","data":{"userIdPrefix":"cms00nto","subCount":2,"origin":"http://localhost:3000","titleLen":35,"endpoints":["fcm.googleapis.com","fcm.googleapis.com"]}}
+{"sessionId":"9e8e6e","runId":"push-debug","timestamp":1785648506619,"hypothesisId":"C","location":"lib/push.ts:sendPushToUser-done","message":"send finished","data":{"sent":2,"failed":0,"subCount":2}}
