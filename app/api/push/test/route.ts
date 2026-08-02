@@ -21,6 +21,30 @@ export async function POST() {
   const subCount = await prisma.pushSubscription.count({ where: { userId: user.id } });
   const snapshot = await buildReviewReminderPayload(user.id);
 
+  // #region agent log
+  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "9e8e6e" },
+    body: JSON.stringify({
+      sessionId: "9e8e6e",
+      runId: "push-debug",
+      hypothesisId: "B",
+      location: "api/push/test:POST",
+      message: "test push preflight",
+      data: {
+        vapidReady,
+        vapidInitError,
+        subCount,
+        hasAlerts: snapshot.hasAlerts,
+        fire: snapshot.fire,
+        rubble: snapshot.rubble,
+        invaders: snapshot.invaders,
+      },
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {});
+  // #endregion
+
   if (vapidInitError) {
     return NextResponse.json({ error: vapidInitError }, { status: 500 });
   }
