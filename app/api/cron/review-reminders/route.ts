@@ -14,22 +14,6 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // #region agent log
-  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "9e8e6e" },
-    body: JSON.stringify({
-      sessionId: "9e8e6e",
-      runId: "est-revert",
-      hypothesisId: "cron",
-      location: "api/cron/review-reminders:GET",
-      message: "daily EST cron started",
-      data: { schedule: "0 12 * * *" },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
-
   const users = await prisma.user.findMany({
     where: { pushSubscriptions: { some: {} } },
     select: { id: true },
@@ -50,22 +34,6 @@ export async function GET(request: Request) {
     });
     if (result.sent > 0) notified += 1;
   }
-
-  // #region agent log
-  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "9e8e6e" },
-    body: JSON.stringify({
-      sessionId: "9e8e6e",
-      runId: "est-revert",
-      hypothesisId: "cron",
-      location: "api/cron/review-reminders:done",
-      message: "daily EST cron finished",
-      data: { usersChecked: users.length, notified, skippedCalm },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
 
   return NextResponse.json({
     ok: true,

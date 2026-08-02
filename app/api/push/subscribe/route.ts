@@ -11,6 +11,7 @@ export async function POST(request: Request) {
   const endpoint = typeof body.endpoint === "string" ? body.endpoint : "";
   const p256dh = typeof body.keys?.p256dh === "string" ? body.keys.p256dh : "";
   const authKey = typeof body.keys?.auth === "string" ? body.keys.auth : "";
+  const replaceOthers = body.replaceOthers === true;
   if (!endpoint || !p256dh || !authKey) {
     return NextResponse.json({ error: "Invalid subscription" }, { status: 400 });
   }
@@ -30,7 +31,14 @@ export async function POST(request: Request) {
     },
   });
 
-  return NextResponse.json({ ok: true });
+  if (replaceOthers) {
+    await prisma.pushSubscription.deleteMany({
+      where: { userId: user.id, NOT: { endpoint } },
+    });
+  }
+
+  const remaining = await prisma.pushSubscription.count({ where: { userId: user.id } });
+  return NextResponse.json({ ok: true, remaining });
 }
 
 export async function DELETE(request: Request) {

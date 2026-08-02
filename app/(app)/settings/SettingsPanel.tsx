@@ -62,7 +62,7 @@ export function SettingsPanel({
   const [geminiInput, setGeminiInput] = useState("");
   const [geminiBusy, setGeminiBusy] = useState(false);
   const [geminiMsg, setGeminiMsg] = useState<string | null>(null);
-  const [pushOn, setPushOn] = useState(initialPush);
+  const [devicePushReady, setDevicePushReady] = useState<boolean | null>(null);
   const [pushBusy, setPushBusy] = useState(false);
   const [pushMsg, setPushMsg] = useState<string | null>(null);
   const [testPushBusy, setTestPushBusy] = useState(false);
@@ -71,6 +71,28 @@ export function SettingsPanel({
   useEffect(() => {
     setProgressive(initialProgressiveUnlock);
   }, [initialProgressiveUnlock]);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function checkDevicePush() {
+      try {
+        if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+          if (!cancelled) setDevicePushReady(false);
+          return;
+        }
+        const reg = await navigator.serviceWorker.getRegistration();
+        const sub = reg ? await reg.pushManager.getSubscription() : null;
+        const ready = Boolean(sub?.endpoint) && Notification.permission === "granted";
+        if (!cancelled) setDevicePushReady(ready);
+      } catch {
+        if (!cancelled) setDevicePushReady(false);
+      }
+    }
+    void checkDevicePush();
+    return () => {
+      cancelled = true;
+    };
+  }, [initialPush]);
 
   async function toggleProgressive(next: boolean) {
     setProgBusy(true);
@@ -218,6 +240,14 @@ export function SettingsPanel({
               Web push reminders for due reviews (fire), rubble, and daily invaders. Alerts fire once
               daily around 8:00 AM Eastern when you have something due.
             </p>
+            {devicePushReady === false ? (
+              <p className="text-xs text-[var(--ember)]">
+                This browser is not subscribed yet
+                {initialPush
+                  ? " (another device may be). Enable notifications here to receive alerts on this machine."
+                  : ". Enable notifications on this device."}
+              </p>
+            ) : null}
             <button
               type="button"
               className="btn-primary text-xs"
@@ -235,6 +265,8 @@ export function SettingsPanel({
                   await navigator.serviceWorker.ready;
                   const vapid = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
                   if (!vapid) throw new Error("VAPID public key not configured");
+                  const existing = await reg.pushManager.getSubscription();
+                  if (existing) await existing.unsubscribe();
                   const sub = await reg.pushManager.subscribe({
                     userVisibleOnly: true,
                     applicationServerKey: urlBase64ToUint8Array(vapid) as BufferSource,
@@ -246,20 +278,26 @@ export function SettingsPanel({
                     body: JSON.stringify({
                       endpoint: json.endpoint,
                       keys: json.keys,
+                      replaceOthers: true,
                     }),
                   });
                   const data = await res.json().catch(() => ({}));
                   if (!res.ok) throw new Error(data.error ?? "Subscribe failed");
-                  setPushOn(true);
-                  setPushMsg("Subscribed on this device.");
+                  setDevicePushReady(true);
+                  setPushMsg("Subscribed on this device. Stale endpoints cleared.");
                 } catch (e) {
                   setPushMsg(e instanceof Error ? e.message : "Subscribe failed");
+                  setDevicePushReady(false);
                 } finally {
                   setPushBusy(false);
                 }
               }}
             >
-              {pushBusy ? "Working…" : pushOn ? "Re-subscribe this device" : "Enable notifications"}
+              {pushBusy
+                ? "Working…"
+                : devicePushReady
+                  ? "Re-subscribe this device"
+                  : "Enable notifications"}
             </button>
             {pushMsg ? <p className="text-xs text-[var(--ink-muted)]">{pushMsg}</p> : null}
           </>
@@ -501,33 +539,25 @@ export function SettingsPanel({
                   setTestPushBusy(true);
                   setTestPushMsg(null);
                   try {
-                    const res = await fetch("/api/push/test", { method: "POST" });
-                    const data = await res.json().catch(() => ({}));
-                    // #region agent log
-                    fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
+                    let localEndpoint: string | null = null;
+                    let permission: NotificationPermission | "unsupported" = "unsupported";
+                    if ("Notification" in window) permission = Notification.permission;
+                    if ("serviceWorker" in navigator) {
+                      const reg = await navigator.serviceWorker.getRegistration();
+                      const sub = reg ? await reg.pushManager.getSubscription() : null;
+                      localEndpoint = sub?.endpoint ?? null;
+                    }
+                    if (!localEndpoint || permission !== "granted") {
+                      throw new Error(
+                        "This browser has no active push subscription. Click Enable/Re-subscribe notifications first, then test again.",
+                      );
+                    }
+                    const res = await fetch("/api/push/test", {
                       method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                        "X-Debug-Session-Id": "9e8e6e",
-                      },
-                      body: JSON.stringify({
-                        sessionId: "9e8e6e",
-                        runId: "push-debug",
-                        hypothesisId: "D",
-                        location: "SettingsPanel.tsx:testPush",
-                        message: "test push client response",
-                        data: {
-                          status: res.status,
-                          ok: res.ok,
-                          error: typeof data.error === "string" ? data.error : null,
-                          sent: data.sent ?? null,
-                          failed: data.failed ?? null,
-                          hasAlerts: data.hasAlerts ?? null,
-                        },
-                        timestamp: Date.now(),
-                      }),
-                    }).catch(() => {});
-                    // #endregion
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ clientEndpoint: localEndpoint }),
+                    });
+                    const data = await res.json().catch(() => ({}));
                     if (!res.ok) throw new Error(data.error ?? "Test push failed");
                     const counts = [
                       typeof data.fire === "number" ? `${data.fire} fire` : null,
@@ -537,9 +567,12 @@ export function SettingsPanel({
                       .filter(Boolean)
                       .join(" · ");
                     setTestPushMsg(
-                      `Sent ${data.sent ?? 0}: “${data.body ?? "ok"}”` +
+                      `Sent ${data.sent ?? 0} to this device: “${data.body ?? "ok"}”` +
                         (counts ? ` (${counts})` : "") +
-                        (data.failed ? ` · ${data.failed} failed` : ""),
+                        (data.failed ? ` · ${data.failed} failed` : "") +
+                        (data.endpointMatched === false
+                          ? " · warning: browser endpoint was not in DB (re-subscribe)"
+                          : ""),
                     );
                   } catch (e) {
                     setTestPushMsg(e instanceof Error ? e.message : "Test push failed");

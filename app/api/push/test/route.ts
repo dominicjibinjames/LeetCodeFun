@@ -4,11 +4,15 @@ import { initWebPush, sendPushToUser } from "@/lib/push";
 import { buildReviewReminderPayload } from "@/lib/push-reminders";
 import { prisma } from "@/lib/prisma";
 
-export async function POST() {
+export async function POST(request: Request) {
   const user = await getSessionUser();
   if (!user) {
     return NextResponse.json({ error: "Sign in required" }, { status: 401 });
   }
+
+  const body = await request.json().catch(() => ({}));
+  const clientEndpoint =
+    typeof body.clientEndpoint === "string" ? body.clientEndpoint : null;
 
   let vapidReady = false;
   let vapidInitError: string | null = null;
@@ -18,32 +22,15 @@ export async function POST() {
     vapidInitError = e instanceof Error ? e.message : "VAPID init failed";
   }
 
-  const subCount = await prisma.pushSubscription.count({ where: { userId: user.id } });
+  const subs = await prisma.pushSubscription.findMany({
+    where: { userId: user.id },
+    select: { endpoint: true },
+  });
+  const subCount = subs.length;
+  const endpointMatched = clientEndpoint
+    ? subs.some((s) => s.endpoint === clientEndpoint)
+    : null;
   const snapshot = await buildReviewReminderPayload(user.id);
-
-  // #region agent log
-  fetch("http://127.0.0.1:7792/ingest/48f6c65e-228d-42ba-b906-d4f53717a7c3", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "9e8e6e" },
-    body: JSON.stringify({
-      sessionId: "9e8e6e",
-      runId: "push-debug",
-      hypothesisId: "B",
-      location: "api/push/test:POST",
-      message: "test push preflight",
-      data: {
-        vapidReady,
-        vapidInitError,
-        subCount,
-        hasAlerts: snapshot.hasAlerts,
-        fire: snapshot.fire,
-        rubble: snapshot.rubble,
-        invaders: snapshot.invaders,
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
 
   if (vapidInitError) {
     return NextResponse.json({ error: vapidInitError }, { status: 500 });
@@ -58,6 +45,17 @@ export async function POST() {
     return NextResponse.json(
       { error: "No push subscription stored for your account. Enable notifications first." },
       { status: 400 },
+    );
+  }
+  if (clientEndpoint && endpointMatched === false) {
+    return NextResponse.json(
+      {
+        error:
+          "This browser’s push endpoint is not saved. Click Enable/Re-subscribe notifications, then test again.",
+        endpointMatched: false,
+        subCount,
+      },
+      { status: 409 },
     );
   }
 
@@ -75,6 +73,7 @@ export async function POST() {
             ? "All subscriptions failed (expired endpoint?). Re-enable notifications on this device."
             : "Nothing sent",
         ...result,
+        endpointMatched,
         snapshot: {
           fire: snapshot.fire,
           rubble: snapshot.rubble,
@@ -89,6 +88,7 @@ export async function POST() {
   return NextResponse.json({
     ok: true,
     ...result,
+    endpointMatched,
     title: snapshot.title,
     body: snapshot.body,
     fire: snapshot.fire,
